@@ -1,11 +1,18 @@
 import React from 'react'
 import { Grommet } from 'grommet';
+import { Row, Col, Container } from 'react-bootstrap'
 import ScanOrShow from './scenes/ScanOrShow';
 
 const App = () => {
   return (
     <Grommet>
-      <ScanOrShow />
+      <Container>
+        <Row>
+          <Col xs={6}>
+            <ScanOrShow />
+          </Col>
+        </Row>
+      </Container>
     </Grommet>
   )
 }
