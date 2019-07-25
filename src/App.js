@@ -2,14 +2,20 @@ import React from 'react'
 import { Grommet } from 'grommet';
 import { Row, Col, Container } from 'react-bootstrap'
 import ScanOrShow from './scenes/ScanOrShow';
+import PhoneInput from './scenes/PhoneInput';
+import NewUser from './scenes/NewUser';
+import Survey from './scenes/Survey';
 
 const App = () => {
   return (
     <Grommet>
       <Container>
         <Row>
-          <Col xs={6}>
-            <ScanOrShow />
+          <Col xs={{ span: 6, offset: 3 }}>
+            <PhoneInput />
+            {/* <ScanOrShow />
+            <NewUser /> */}
+            <Survey />
           </Col>
         </Row>
       </Container>
