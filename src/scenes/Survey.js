@@ -30,10 +30,7 @@ const Survey = () => {
   return (
     <Fragment>
       <Form onSubmit={({ value }) => onSubmit(value)}>
-        <FormField label="first name" name="firstName" required />
-        <FormField label="last name" name="lastName" required />
-        <FormField label="email (optional)" name="email" />
-        <Button type="submit" primary label="Submit" />
+        <FormField label="survey" name="test" required />
       </Form>
     </Fragment>
   )

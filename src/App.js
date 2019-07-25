@@ -15,7 +15,7 @@ const App = () => {
             <PhoneInput />
             {/* <ScanOrShow />
             <NewUser /> */}
-            <Survey />
+            {/* <Survey /> */}
           </Col>
         </Row>
       </Container>

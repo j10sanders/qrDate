@@ -1,28 +1,27 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Button, FormField, Form } from 'grommet'
 import axios from "axios"
-
-const onSubmit = async (value, phone) => {
-  const phoneNumber = phone.replace(/[- )(]/g,'')
-  const userFields = {phoneNumber, ...value}
-  const res = await axios.post(`https://qrmatch.herokuapp.com/user`, {userFields})
-  if (!res.data) {
-    debugger
-  }
-  if (res.data.user){
-    const { user } = res.data
-    if (user[0] === 0){
-      debugger
-    }
-    if (user[0].firstName) {
-      debugger
-    }
-  debugger
-  }
-  debugger
-}
+import Survey from './Survey'
 
 const User = ({ phone }) => {
+  const [registered, registerUser] = useState(false)
+  const onSubmit = async (value, phone) => {
+    const phoneNumber = phone.replace(/[- )(]/g,'')
+    const userFields = {phoneNumber, ...value}
+    const res = await axios.post(`https://qrmatch.herokuapp.com/user`, {userFields})
+    if (!res.data) {
+      debugger
+    }
+    if (res.data.user){
+      const { user } = res.data
+      if (user.firstName) {
+        registerUser(true)
+      }
+    }
+  }
+  if (registered) {
+    return <Survey />
+  }
   return (
     <Fragment>
       {phone}
