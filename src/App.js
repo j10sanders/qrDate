@@ -4,6 +4,7 @@ import { Row, Col, Container } from 'react-bootstrap'
 import ScanOrShow from './scenes/ScanOrShow';
 import PhoneInput from './scenes/PhoneInput';
 import NewUser from './scenes/NewUser';
+import Survey from './scenes/Survey';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
             <PhoneInput />
             {/* <ScanOrShow />
             <NewUser /> */}
+            <Survey />
           </Col>
         </Row>
       </Container>

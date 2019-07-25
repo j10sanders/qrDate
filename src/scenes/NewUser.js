@@ -2,10 +2,24 @@ import React, { Fragment } from 'react'
 import { Button, FormField, Form } from 'grommet'
 import axios from "axios"
 
-const onSubmit = (value, phone) => {
+const onSubmit = async (value, phone) => {
   const phoneNumber = phone.replace(/[- )(]/g,'')
-  const user = {phoneNumber, ...value}
-  console.log(user, "USER")
+  const userFields = {phoneNumber, ...value}
+  const res = await axios.post(`https://qrmatch.herokuapp.com/user`, {userFields})
+  if (!res.data) {
+    debugger
+  }
+  if (res.data.user){
+    const { user } = res.data
+    if (user[0] === 0){
+      debugger
+    }
+    if (user[0].firstName) {
+      debugger
+    }
+  debugger
+  }
+  debugger
 }
 
 const User = ({ phone }) => {
