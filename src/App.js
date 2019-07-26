@@ -5,6 +5,7 @@ import ScanOrShow from './scenes/ScanOrShow';
 import PhoneInput from './scenes/PhoneInput';
 import NewUser from './scenes/NewUser';
 import Survey from './scenes/Survey';
+// import Spinner from './components/Spinner'
 
 const App = () => {
   return (
@@ -12,10 +13,11 @@ const App = () => {
       <Container>
         <Row>
           <Col xs={{ span: 6, offset: 3 }}>
-            <PhoneInput />
+            {/* <PhoneInput /> */}
+            {/* <Spinner /> */}
             {/* <ScanOrShow />
             <NewUser /> */}
-            {/* <Survey /> */}
+            <Survey />
           </Col>
         </Row>
       </Container>
