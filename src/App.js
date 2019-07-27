@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grommet } from 'grommet';
+import { Grommet, Box } from 'grommet';
 import { Row, Col, Container } from 'react-bootstrap'
 import ScanOrShow from './scenes/ScanOrShow';
 import PhoneInput from './scenes/PhoneInput';
@@ -10,17 +10,29 @@ import Survey from './scenes/Survey';
 const App = () => {
   return (
     <Grommet>
-      <Container>
-        <Row>
-          <Col xs={{ span: 6, offset: 3 }}>
-            {/* <PhoneInput /> */}
-            {/* <Spinner /> */}
-            {/* <ScanOrShow />
+      <Box
+        // direction="row"
+        border={{ color: 'brand', size: 'large' }}
+        pad="small"
+        // fill
+        // flex
+        round="small"
+      >
+        <Container>
+          <Row>
+            <Col xs={{ offset: 1 }} style={{minHeight: '100vh'}}>
+              <PhoneInput />
+            </Col>
+          </Row>
+        </Container>
+
+      </Box>
+
+      {/* <Spinner /> */}
+      {/* <ScanOrShow />
             <NewUser /> */}
-            <Survey />
-          </Col>
-        </Row>
-      </Container>
+      {/* <Survey /> */}
+
     </Grommet>
   )
 }
