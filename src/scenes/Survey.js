@@ -71,11 +71,12 @@ const Survey = () => {
     return <Spinner />
   }
   
+  // possibly just give an index with the map, and use that when storing the value in state.
   return (
     <Fragment>
       <Form onSubmit={({ value }) => onSubmit(value)}>
         {suveryQs.surveyFields.questionsJson.data.map(q => (
-          <StyledField label={q.question} name={q.question} required >
+          <StyledField label={q.question} name={q.question} required>
             <Select options={q.answers} />
           </StyledField>
         ))}
