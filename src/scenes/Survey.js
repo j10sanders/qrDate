@@ -3,6 +3,7 @@ import { Button, FormField, Form, Select } from 'grommet'
 import axios from "axios"
 import ScanOrShow from './ScanOrShow'
 import Spinner from '../components/Spinner'
+import { StyledField } from './NewUser'
 
 const Survey = () => {
   const [hasError, setErrors] = useState(false)
@@ -73,11 +74,11 @@ const Survey = () => {
   return (
     <Fragment>
       <Form onSubmit={({ value }) => onSubmit(value)}>
-        {suveryQs.surveyFields.questionsJson.data.map(q =>
-          <FormField label={q.question} name={q.question} required >
+        {suveryQs.surveyFields.questionsJson.data.map(q => (
+          <StyledField label={q.question} name={q.question} required >
             <Select options={q.answers} />
-          </FormField>
-        )}
+          </StyledField>
+        ))}
       </Form>
     </Fragment>
   )

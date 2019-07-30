@@ -13,8 +13,8 @@ const PhoneInput = () => {
   const callApi = async num => {
     const formattedNumber = num.replace(/[- )(]/g, '')
     const res = await axios.get(`https://qrmatch.herokuapp.com/user/${formattedNumber}`)
-    if (!res.data) {
-      debugger
+    if (!res.error) {
+      newUser(true)
     }
     if (res.data.user) {
       const { user } = res.data

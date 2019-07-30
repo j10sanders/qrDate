@@ -20,8 +20,11 @@ const App = () => {
       >
         <Container>
           <Row>
-            <Col xs={{ offset: 1 }} style={{minHeight: '100vh'}}>
-              <PhoneInput />
+            <Col xs={{ offset: 1 }} style={{minHeight: '-webkit-fill-available'}}>
+              <div style={{ paddingTop: '5rem' }}>
+                {/* <PhoneInput /> */}
+                <Survey />
+              </div>
             </Col>
           </Row>
         </Container>

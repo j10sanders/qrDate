@@ -1,7 +1,12 @@
 import React, { Fragment, useState } from 'react'
 import { Button, FormField, Form } from 'grommet'
 import axios from "axios"
+import styled from 'styled-components'
 import Survey from './Survey'
+
+export const StyledField = styled(FormField)`
+  padding-top: 1rem;
+`
 
 const User = ({ phone }) => {
   const [registered, registerUser] = useState(false)
@@ -25,11 +30,11 @@ const User = ({ phone }) => {
   return (
     <Fragment>
       {phone}
-      <Form onSubmit={({ value }) => onSubmit(value, phone)}>
-        <FormField label="first name" name="firstName" required />
-        <FormField label="last name" name="lastName" required />
-        <FormField label="email (optional)" name="email" />
-        <Button type="submit" primary label="Submit" />
+      <Form onSubmit={({ value }) => onSubmit(value, phone)} style={{paddingTop: '2rem'}}>
+        <StyledField label="first name" name="firstName" required />
+        <StyledField label="last name" name="lastName" required />
+        <StyledField label="email (optional)" name="email" />
+        <Button type="submit" primary label="Submit" style={{marginTop: '3rem'}} />
       </Form>
     </Fragment>
   )
