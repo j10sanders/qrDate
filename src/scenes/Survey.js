@@ -1,13 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { Button, FormField, Form, Select } from 'grommet'
+import { Button, Select } from 'grommet'
 import axios from "axios"
-import ScanOrShow from './ScanOrShow'
 import Spinner from '../components/Spinner'
 import { StyledField } from './NewUser'
+import QrRender from '../components/QR-render'
 
 const Survey = () => {
   const [hasError, setErrors] = useState(false)
-  const [suveryQs, setQs] = useState([])
+  const [surveyQs, setQs] = useState([])
+  const [surveyAs, setAs] = useState(new Array(3))
+  const [answersJson, setAnswersJson] = useState([])
   const surveyId = 1
 
   const getSurvey = async () => {
@@ -62,25 +64,40 @@ const Survey = () => {
     getSurvey()
   }, [])
 
-  const onSubmit = value => {
-    console.log(value)
-    debugger
+  const onSubmit = () => {
+    const qs = surveyQs.surveyFields.questionsJson.data.map(q => {
+      return q.question
+    })
+    const answers = qs.map((x, i) => {
+      return {[x]: surveyAs[i]}
+    })
+    setAnswersJson(answers)
   }
 
-  if (suveryQs.length === 0) {
-    return <Spinner />
+  const updateAs = (val, index) => {
+    const As = [...surveyAs]
+    As[index] = val
+    setAs(As)
   }
   
+
+  if (surveyQs.length === 0) {
+    return <Spinner />
+  }
+
+  if (answersJson.length !== 0) {
+    return <QrRender data={JSON.stringify(answersJson)} />
+  }
+
   // possibly just give an index with the map, and use that when storing the value in state.
   return (
     <Fragment>
-      <Form onSubmit={({ value }) => onSubmit(value)}>
-        {suveryQs.surveyFields.questionsJson.data.map(q => (
-          <StyledField label={q.question} name={q.question} required>
-            <Select options={q.answers} />
-          </StyledField>
-        ))}
-      </Form>
+      {surveyQs.surveyFields.questionsJson.data.map((q, i) => (
+        <StyledField label={q.question} name={q.question} required key={q.question}>
+          <Select options={q.answers} onChange={({ option }) => updateAs(option, i)} placeholder={q.answers[0]} value={surveyAs[i]} />
+        </StyledField>
+      ))}
+      <Button onClick={onSubmit} label="Submit" primary style={{ marginTop: '3rem' }} />
     </Fragment>
   )
 }
