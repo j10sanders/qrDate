@@ -1,26 +1,4 @@
-const compareTwoResponses = (response = [
-  {
-  "Would you rather become...?": "Live the rest of your life without technology"
-  },
-  {
-  "Your go-to Bodega order": "Bacon Egg and Cheese"
-  },
-  {
-  "Which drink do you prefer": "Negroni"
-  }
-  ], 
-  response1 = 
-  [
-    {
-    "Would you rather become...?": "Live the rest of your life without technology"
-    },
-    {
-    "Your go-to Bodega order": "Bacon Egg and Cheese"
-    },
-    {
-    "Which drink do you prefer": "Nope"
-    }
-    ]) => {
+const compareTwoResponses = (response = [], response1 = []) => {
   if (response.length !== response1.length) {
     throw Error(
       "Responses should contain same number of questions and answers."

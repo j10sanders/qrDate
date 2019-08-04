@@ -3,7 +3,6 @@ import { Button } from 'grommet'
 import { Camera, Close } from "grommet-icons"
 import QrReader from '../components/Qr-reader'
 
-
 const ShowScannerButton = ({ showReader, setScanResult }) => {
   return (
     <Button
