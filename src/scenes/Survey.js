@@ -4,8 +4,9 @@ import axios from "axios"
 import Spinner from '../components/Spinner'
 import { StyledField } from './NewUser'
 import QrRender from '../components/QR-render'
+import { saveState } from '../utils/saveLocal'
 
-const Survey = () => {
+const Survey = ({ user }) => {
   const [hasError, setErrors] = useState(false)
   const [surveyQs, setQs] = useState([])
   const [surveyAs, setAs] = useState(new Array(3))
@@ -64,7 +65,7 @@ const Survey = () => {
     getSurvey()
   }, [])
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const qs = surveyQs.surveyFields.questionsJson.data.map(q => {
       return q.question
     })
@@ -72,6 +73,20 @@ const Survey = () => {
       return {[x]: surveyAs[i]}
     })
     setAnswersJson(answers)
+    const payload = {
+      responseFields: {
+        surveyId: 2,
+        type: "survey",
+        userId: user.id, 
+        answersJson: answers
+      }
+    }
+    const res = await axios.post(`https://qrmatch.herokuapp.com/response`, payload)
+    console.log(res)
+    // haven't tried the stuff below yet
+    // const myUser = await axios.get(`https://qrmatch.herokuapp.com/${user.phoneNumber}`)
+    // console.log(myUser.data)
+    // const newLocalState = saveState('myUser', myUser.data)
   }
 
   const updateAs = (val, index) => {
@@ -89,7 +104,6 @@ const Survey = () => {
     return <QrRender data={JSON.stringify(answersJson)} />
   }
 
-  // possibly just give an index with the map, and use that when storing the value in state.
   return (
     <Fragment>
       {surveyQs.surveyFields.questionsJson.data.map((q, i) => (
