@@ -4,11 +4,13 @@ import ReactPhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/dist/style.css'
 import { Phone } from "grommet-icons"
 import axios from "axios"
+import QrRender from '../components/QR-render'
 import NewUser from './NewUser'
 
 const PhoneInput = () => {
   const [number, setValue] = useState('')
   const [makeUser, newUser] = useState(false)
+  const [existingUser, gotExistingUser] = useState()
   console.log(makeUser, "make")
   const callApi = async num => {
     const formattedNumber = num.replace(/[- )(]/g, '')
@@ -21,10 +23,18 @@ const PhoneInput = () => {
       if (user.firstName) {
         console.log("user: ", user)
       }
+      if (user.Responses){
+        gotExistingUser(user)
+      }
       if (user[0] === 0) {
         newUser(true)
       }
     }
+  }
+
+  if (existingUser) {
+    console.log(existingUser, "existing user")
+    return  <QrRender data={JSON.stringify(existingUser.Responses[0].answersJson)} />
   }
 
   if (makeUser) {

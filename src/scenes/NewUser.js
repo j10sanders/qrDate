@@ -9,7 +9,7 @@ export const StyledField = styled(FormField)`
 `
 
 const User = ({ phone }) => {
-  const [registered, registerUser] = useState(false)
+  const [newUser, registerUser] = useState(null)
   const onSubmit = async (value, phone) => {
     const phoneNumber = phone.replace(/[- )(]/g,'')
     const userFields = {phoneNumber, ...value}
@@ -20,12 +20,12 @@ const User = ({ phone }) => {
     if (res.data.user){
       const { user } = res.data
       if (user.firstName) {
-        registerUser(true)
+        registerUser(user)
       }
     }
   }
-  if (registered) {
-    return <Survey />
+  if (newUser) {
+    return <Survey user={newUser} />
   }
   return (
     <Fragment>
