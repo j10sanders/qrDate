@@ -1,26 +1,52 @@
-const compareTwoResponses = (response = [], response1 = []) => {
+const compareTwoResponses = (response = [
+  {
+  "Would you rather become...?": "Live the rest of your life without technology"
+  },
+  {
+  "Your go-to Bodega order": "Bacon Egg and Cheese"
+  },
+  {
+  "Which drink do you prefer": "Negroni"
+  }
+  ], 
+  response1 = 
+  [
+    {
+    "Would you rather become...?": "Live the rest of your life without technology"
+    },
+    {
+    "Your go-to Bodega order": "Bacon Egg and Cheese"
+    },
+    {
+    "Which drink do you prefer": "Nope"
+    }
+    ]) => {
   if (response.length !== response1.length) {
     throw Error(
       "Responses should contain same number of questions and answers."
     );
   }
   let score = 0;
-  let sharedAnswers = [];
+  const sharedAnswers = [];
   if (response)
-    response.forEach((answer, i) => {
-      const counterAnswer = response1[i];
+  // Refactor to just use object.keys and values outside the loop
+    response.forEach((res, i) => {
+      const otherResponse = response1.slice(0)
+      const counterRes = otherResponse[i]
       if (
-        answer.question === counterAnswer.question &&
-        answer.answer === counterAnswer.answer
+        Object.keys(res)[0] === Object.keys(counterRes)[0] &&
+        Object.values(res)[0] === Object.values(counterRes)[0]
       ) {
-        score++;
-        sharedAnswers.push(answer);
+        score++
+        sharedAnswers.push(res)
       }
     });
+    console.log(score, sharedAnswers)
   //shared answers will be used to give a random ice breaker question
   return { score, sharedAnswers };
 };
 
+compareTwoResponses()
 // compareTwoResponses(response, response1);
 module.exports = compareTwoResponses;
 
