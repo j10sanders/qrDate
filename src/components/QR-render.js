@@ -7,7 +7,7 @@ const QrRender = qAndAs => {
   return (
     <Fragment>
       <QRCode value={qAndAs.data} size={256} renderAs="svg" style={{ display: 'block', margin: 'auto' }} fgColor="#7d4cdb" />
-      <ScanOrShow />
+      <ScanOrShow myResults={qAndAs.data} />
     </Fragment>
     
   )

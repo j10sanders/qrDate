@@ -1,4 +1,6 @@
-const compareTwoResponses = (response = [], response1 = []) => {
+export default (response, response1) => {
+  console.log(response, response1)
+  debugger
   if (response.length !== response1.length) {
     throw Error(
       "Responses should contain same number of questions and answers."
@@ -23,10 +25,6 @@ const compareTwoResponses = (response = [], response1 = []) => {
   //shared answers will be used to give a random ice breaker question
   return { score, sharedAnswers };
 };
-
-compareTwoResponses()
-// compareTwoResponses(response, response1);
-module.exports = compareTwoResponses;
 
 //Example survey and responses
 // const surveyJson = {
