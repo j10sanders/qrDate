@@ -2,11 +2,21 @@ import React, { useState } from 'react'
 import { Button } from 'grommet'
 import { Camera, Close } from "grommet-icons"
 import QrReader from '../components/Qr-reader'
+import compareTwoResponses from '../utils/compareTwoReponses'
+import styled from 'styled-components'
 
+const CenteredButton = styled(Button)`
+  margin: 0 auto;
+  display: block;
+`
+
+const ButtonContainer = styled.div`
+  margin-top: 4rem;
+`
 
 const ShowScannerButton = ({ showReader, setScanResult }) => {
   return (
-    <Button
+    <CenteredButton
       label="Scan QR Code"
       primary
       icon={<Camera />}
@@ -14,26 +24,41 @@ const ShowScannerButton = ({ showReader, setScanResult }) => {
         setScanResult(null)
         showReader(true)}
       }
+      style={{ display: 'block', margin: '0 auto'}}
     />
   )
 }
 
-const ScanOrShow = () => {
-  const [result, setScanResult] = useState(null)
-  const [error, setError] = useState(null)
+const ScanOrShow = ({ myResults }) => {
+  const [result, setScanResult] = useState()
+  const [error, setError] = useState()
   const [readerShowing, showReader] = useState(false)
-  
-  if (result) {
-    return(
-      <div>
-        {result}
-        <ShowScannerButton showReader={showReader} setScanResult={setScanResult} />
-      </div>
-    )
+  const [comparedResult, compare] = useState()
+
+  if (comparedResult) {
+    return <div>{JSON.stringify(comparedResult)}</div>
   }
 
+  
+  if (result) {
+    console.log(myResults, result)
+    compare(compareTwoResponses(JSON.parse(myResults), JSON.parse(result)))
+  }
+  // if (result) {
+  //   return(
+  //     <ButtonContainer>
+  //       {result}
+  //       <ShowScannerButton showReader={showReader} setScanResult={setScanResult} />
+  //     </ButtonContainer>
+  //   )
+  // }
+
   if (!readerShowing) {
-    return <ShowScannerButton showReader={showReader} setScanResult={setScanResult} />
+    return (
+      <ButtonContainer>
+        <ShowScannerButton showReader={showReader} setScanResult={setScanResult} /> 
+      </ButtonContainer>
+    )
   }
 
   if (error) {
@@ -46,16 +71,17 @@ const ScanOrShow = () => {
     )
   }
 
-    return (
-      <div>
-        <Button primary label="Close QR Scanner" onClick={() => showReader(false)} icon={<Close />} />
-        <QrReader
-          setScanResult={setScanResult}
-          setError={setError}
-        />
-        <p>{result}</p>
-      </div>
-    )
+
+  return (
+    <ButtonContainer>
+      <CenteredButton primary label="Close QR Scanner" onClick={() => showReader(false)} icon={<Close />} />
+      <QrReader
+        setScanResult={setScanResult}
+        setError={setError}
+      />
+      <p>{result}</p>
+    </ButtonContainer>
+  )
   
 }
 
