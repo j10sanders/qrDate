@@ -176,7 +176,7 @@ const Survey = ({ user, phoneNumber }) => {
     setAnswersJson(answers);
     const payload = {
       responseFields: {
-        surveyId: 2,
+        surveyId,
         type: "survey",
         userId: user.id,
         answersJson: answers
