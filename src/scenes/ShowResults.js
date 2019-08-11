@@ -4,8 +4,14 @@ import axios from "axios"
 import GetGif from '../utils/getGif'
 
 
-const ShowResult = ({ result, comparedResult }) => {
-  console.log(result, "RESUL:T")
+const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
+  console.log(result, "RESULT")
+  useEffect(async() => {
+    console.log(fromUserId, surveyId, result.userId)
+    debugger
+    const res = await axios.post(`https://qrmatch.herokuapp.com/compare`, {fromUserId, toUserId: result.userId, surveyId: 3 })
+    console.log(res, "Result of compare")
+  })
   return (
     <Fragment>
       <Text>

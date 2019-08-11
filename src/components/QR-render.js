@@ -9,9 +9,10 @@ const QrRender = ({ qAndAs, user }) => {
   const [result, setScanResult] = useState()
   const [comparedResult, compare] = useState()
   const myResults = [...qAndAs]
+  const fullObject = JSON.stringify({ firstName: user.firstName, userId: user.id, qAndAs })
 
   if (comparedResult) {
-    return <ShowResults result={result} comparedResult={comparedResult} />
+    return <ShowResults result={result} comparedResult={comparedResult} fromUserId={user.id} />
   }
   
   if (result) {
@@ -21,7 +22,6 @@ const QrRender = ({ qAndAs, user }) => {
     compare(compareTwoResponses(myResults, result))
   }
 
-  const fullObject = JSON.stringify({ firstName: user.firstName, userId: user.id, qAndAs })
   return (
     <Fragment>
       <p style={{ textAlign: 'center' }}>
