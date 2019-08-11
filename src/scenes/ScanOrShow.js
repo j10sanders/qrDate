@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button } from 'grommet'
 import { Camera, Close } from "grommet-icons"
+import styled from 'styled-components'
 import QrReader from '../components/Qr-reader'
 import compareTwoResponses from '../utils/compareTwoReponses'
-import styled from 'styled-components'
 
 const CenteredButton = styled(Button)`
   margin: 0 auto;
@@ -11,7 +11,7 @@ const CenteredButton = styled(Button)`
 `
 
 const ButtonContainer = styled.div`
-  margin-top: 4rem;
+  margin-top: 3rem;
 `
 
 const ShowScannerButton = ({ showReader, setScanResult }) => {
@@ -40,19 +40,9 @@ const ScanOrShow = ({ myResults }) => {
     return <div>{JSON.stringify(comparedResult)}</div>
   }
 
-
   if (result) {
-    console.log(myResults, result)
     compare(compareTwoResponses(JSON.parse(myResults), JSON.parse(result)))
   }
-  // if (result) {
-  //   return(
-  //     <ButtonContainer>
-  //       {result}
-  //       <ShowScannerButton showReader={showReader} setScanResult={setScanResult} />
-  //     </ButtonContainer>
-  //   )
-  // }
 
   if (!readerShowing) {
     return (
@@ -71,7 +61,6 @@ const ScanOrShow = ({ myResults }) => {
       </div>
     )
   }
-
 
   return (
     <ButtonContainer>

@@ -40,8 +40,8 @@ const PhoneInput = () => {
 
   if (existingUser) {
     console.log(existingUser, "existingUser")
-    if (existingUser.user.Responses) {
-      return  <QrRender data={JSON.stringify(existingUser.user.Responses[0].answersJson)} />
+    if (existingUser.user && existingUser.user.Responses) {
+      return  <QrRender qAndAs={JSON.stringify(existingUser.user.Responses[0].answersJson)} user={existingUser.user} />
     }
     return <Survey user={existingUser} />
   }

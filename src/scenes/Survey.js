@@ -186,18 +186,13 @@ const Survey = ({ user, phoneNumber }) => {
       `https://qrmatch.herokuapp.com/response`,
       payload
     );
-    console.log(res);
-    debugger;
+    if (!res.data) {
+      debugger
+    }
     const fullUser = await axios.get(
       `https://qrmatch.herokuapp.com/user/${phoneNumber}`
     );
-    console.log(fullUser);
-    debugger;
     saveState("existingUser", fullUser.data);
-    // haven't tried the stuff below yet
-    // const myUser = await axios.get(`https://qrmatch.herokuapp.com/${user.phoneNumber}`)
-    // console.log(myUser.data)
-    // const newLocalState = saveState('myUser', myUser.data)
   };
 
   const updateAs = (val, index) => {
@@ -211,7 +206,7 @@ const Survey = ({ user, phoneNumber }) => {
   }
 
   if (answersJson.length !== 0) {
-    return <QrRender data={JSON.stringify(answersJson)} />;
+    return <QrRender qAndAs={JSON.stringify(answersJson)} user={user} />;
   }
 
   return (
@@ -226,7 +221,6 @@ const Survey = ({ user, phoneNumber }) => {
           <Select
             options={q.answers}
             onChange={({ option }) => updateAs(option, i)}
-            placeholder={q.answers[0]}
             value={surveyAs[i]}
           />
         </StyledField>
