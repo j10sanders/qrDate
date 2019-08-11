@@ -10,10 +10,10 @@ const QrRender = ({ qAndAs, user }) => {
   const [comparedResult, compare] = useState()
   const myResults = [...qAndAs]
 
-  // if (comparedResult) {
+  if (comparedResult) {
     return <ShowResults result={result} comparedResult={comparedResult} />
-  // }
-
+  }
+  
   if (result) {
     console.log(result, "result")
     console.log(myResults, "myresults")
