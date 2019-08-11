@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { Button, FormField } from 'grommet'
 import ReactPhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/dist/style.css'
@@ -6,12 +6,18 @@ import { Phone } from "grommet-icons"
 import axios from "axios"
 import QrRender from '../components/QR-render'
 import NewUser from './NewUser'
+import { loadState } from '../utils/saveLocal'
+import Survey from './Survey';
 
 const PhoneInput = () => {
   const [number, setValue] = useState('')
   const [makeUser, newUser] = useState(false)
-  const [existingUser, gotExistingUser] = useState()
-  console.log(makeUser, "make")
+  const [existingUser, gotExistingUser] = useState(loadState('existingUser'))
+
+  // useEffect(() => {
+  //   getExistingUser(loadState('existingUser'))
+  // })
+
   const callApi = async num => {
     const formattedNumber = num.replace(/[- )(]/g, '')
     const res = await axios.get(`https://qrmatch.herokuapp.com/user/${formattedNumber}`)
@@ -33,8 +39,11 @@ const PhoneInput = () => {
   }
 
   if (existingUser) {
-    console.log(existingUser, "existing user")
-    return  <QrRender data={JSON.stringify(existingUser.Responses[0].answersJson)} />
+    console.log(existingUser, "existingUser")
+    if (existingUser.user.Responses) {
+      return  <QrRender data={JSON.stringify(existingUser.user.Responses[0].answersJson)} />
+    }
+    return <Survey user={existingUser} />
   }
 
   if (makeUser) {

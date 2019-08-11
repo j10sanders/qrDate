@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { Button, FormField, Form } from 'grommet'
 import axios from "axios"
 import styled from 'styled-components'
+import { saveState, loadState } from '../utils/saveLocal'
 import Survey from './Survey'
 
 export const StyledField = styled(FormField)`
@@ -9,9 +10,9 @@ export const StyledField = styled(FormField)`
 `
 
 const User = ({ phone }) => {
-  const [newUser, registerUser] = useState(null)
+  const [newUser, registerUser] = useState(loadState('existingUser'))
+  const [phoneNumber, formatPhone] = useState(phone.replace(/[- )(]/g,''))
   const onSubmit = async (value, phone) => {
-    const phoneNumber = phone.replace(/[- )(]/g,'')
     const userFields = {phoneNumber, ...value}
     const res = await axios.post(`https://qrmatch.herokuapp.com/user`, {userFields})
     if (!res.data) {
@@ -21,11 +22,13 @@ const User = ({ phone }) => {
       const { user } = res.data
       if (user.firstName) {
         registerUser(user)
+
       }
     }
   }
   if (newUser) {
-    return <Survey user={newUser} />
+    saveState('existingUser', newUser)
+    return <Survey user={newUser} phoneNumber={phoneNumber} />
   }
   return (
     <Fragment>

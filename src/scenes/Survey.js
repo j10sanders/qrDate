@@ -6,7 +6,7 @@ import { StyledField } from "./NewUser";
 import QrRender from "../components/QR-render";
 import { saveState } from "../utils/saveLocal";
 
-const Survey = ({ user }) => {
+const Survey = ({ user, phoneNumber }) => {
   const [hasError, setErrors] = useState(false);
   const [surveyQs, setQs] = useState([]);
   const [surveyAs, setAs] = useState(new Array(3));
@@ -187,6 +187,13 @@ const Survey = ({ user }) => {
       payload
     );
     console.log(res);
+    debugger;
+    const fullUser = await axios.get(
+      `https://qrmatch.herokuapp.com/user/${phoneNumber}`
+    );
+    console.log(fullUser);
+    debugger;
+    saveState("existingUser", fullUser.data);
     // haven't tried the stuff below yet
     // const myUser = await axios.get(`https://qrmatch.herokuapp.com/${user.phoneNumber}`)
     // console.log(myUser.data)
