@@ -22,9 +22,10 @@ const ShowScannerButton = ({ showReader, setScanResult }) => {
       icon={<Camera />}
       onClick={() => {
         setScanResult(null)
-        showReader(true)}
+        showReader(true)
       }
-      style={{ display: 'block', margin: '0 auto'}}
+      }
+      style={{ display: 'block', margin: '0 auto', marginBottom: '1rem' }}
     />
   )
 }
@@ -39,7 +40,7 @@ const ScanOrShow = ({ myResults }) => {
     return <div>{JSON.stringify(comparedResult)}</div>
   }
 
-  
+
   if (result) {
     console.log(myResults, result)
     compare(compareTwoResponses(JSON.parse(myResults), JSON.parse(result)))
@@ -56,15 +57,15 @@ const ScanOrShow = ({ myResults }) => {
   if (!readerShowing) {
     return (
       <ButtonContainer>
-        <ShowScannerButton showReader={showReader} setScanResult={setScanResult} /> 
+        <ShowScannerButton showReader={showReader} setScanResult={setScanResult} />
       </ButtonContainer>
     )
   }
 
   if (error) {
-    return(
+    return (
       <div>
-        Error: 
+        Error:
         {' '}
         {error}
       </div>
@@ -75,14 +76,16 @@ const ScanOrShow = ({ myResults }) => {
   return (
     <ButtonContainer>
       <CenteredButton primary label="Close QR Scanner" onClick={() => showReader(false)} icon={<Close />} />
-      <QrReader
-        setScanResult={setScanResult}
-        setError={setError}
-      />
+      <div style={{ marginTop: '1rem' }}>
+        <QrReader
+          setScanResult={setScanResult}
+          setError={setError}
+        />
+      </div>
       <p>{result}</p>
     </ButtonContainer>
   )
-  
+
 }
 
 export default ScanOrShow
