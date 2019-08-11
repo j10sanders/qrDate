@@ -6,7 +6,7 @@ const QrReader = ({ setError, setScanResult }) => {
     <QR
       delay={300}
       onError={err => setError(err)}
-      onScan={data => setScanResult(data)}
+      onScan={data => setScanResult(JSON.parse(data))}
       style={{ width: '50%', height: '50%', margin: '0 auto' }}
     />
   )

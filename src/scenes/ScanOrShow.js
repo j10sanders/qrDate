@@ -3,7 +3,6 @@ import { Button } from 'grommet'
 import { Camera, Close } from "grommet-icons"
 import styled from 'styled-components'
 import QrReader from '../components/Qr-reader'
-import compareTwoResponses from '../utils/compareTwoReponses'
 
 const CenteredButton = styled(Button)`
   margin: 0 auto;
@@ -30,23 +29,9 @@ const ShowScannerButton = ({ showReader, setScanResult }) => {
   )
 }
 
-const ScanOrShow = ({ myResults }) => {
-  const [result, setScanResult] = useState()
+const ScanOrShow = ({ setScanResult, result }) => {
   const [error, setError] = useState()
   const [readerShowing, showReader] = useState(false)
-  const [comparedResult, compare] = useState()
-
-  if (comparedResult) {
-    return <div>{JSON.stringify(comparedResult)}
-      {result}
-      {JSON.stringify(myResults)}
-    </div>
-  }
-
-  if (result) {
-    console.log(result, myResults)
-    compare(compareTwoResponses((myResults), JSON.parse(result)))
-  }
 
   if (!readerShowing) {
     return (

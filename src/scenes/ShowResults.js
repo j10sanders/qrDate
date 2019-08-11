@@ -1,19 +1,21 @@
 import React, { useState, Fragment, useEffect } from 'react'
-import { Button, FormField } from 'grommet'
-import ReactPhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/dist/style.css'
-import { Phone } from "grommet-icons"
+import { Button, FormField, Text } from 'grommet'
 import axios from "axios"
-import QrRender from '../components/QR-render'
-import NewUser from './NewUser'
-import { loadState } from '../utils/saveLocal'
-import Survey from './Survey';
+import GetGif from '../utils/getGif'
 
-const ShowResult = ({ user, results }) => {
+
+const ShowResult = ({ result, comparedResult }) => {
+  console.log(result, "RESUL:T")
   return (
     <Fragment>
-      {user}
-      {results}
+      <Text>
+        You scanned
+        {' '}
+      </Text>
+      <Text>
+        {result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1)}
+      </Text>
+    <img style={{maxWidth: '-webkit-fill-available' }} src={GetGif(.6)} />
     </Fragment>
   )
 }

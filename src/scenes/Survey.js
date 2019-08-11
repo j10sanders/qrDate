@@ -11,7 +11,7 @@ const Survey = ({ user, phoneNumber }) => {
   const [surveyQs, setQs] = useState([]);
   const [surveyAs, setAs] = useState(new Array(3));
   const [answersJson, setAnswersJson] = useState([]);
-  const surveyId = 1;
+  const surveyId = 2;
 
   const getSurvey = async () => {
     // const res = await axios.get(`https://qrmatch.herokuapp.com/survey/${surveyId}`)
