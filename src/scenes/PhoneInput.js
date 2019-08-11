@@ -35,7 +35,6 @@ const PhoneInput = () => {
   }
 
   if (existingUser) {
-    console.log(existingUser, "existingUser")
     if (existingUser.user && existingUser.user.Responses) {
       return  <QrRender qAndAs={existingUser.user.Responses[0].answersJson} user={existingUser.user} />
     }

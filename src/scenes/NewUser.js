@@ -33,11 +33,11 @@ const User = ({ phone }) => {
   return (
     <Fragment>
       {phone}
-      <Form onSubmit={({ value }) => onSubmit(value, phone)} style={{paddingTop: '2rem'}}>
+      <Form onSubmit={({ value }) => onSubmit(value, phone)} style={{ paddingTop: '2rem' }}>
         <StyledField label="first name" name="firstName" required />
         <StyledField label="last name" name="lastName" required />
         <StyledField label="email (optional)" name="email" />
-        <Button type="submit" primary label="Submit" style={{marginTop: '3rem'}} />
+        <Button type="submit" primary label="Submit" style={{ marginTop: '3rem' }} />
       </Form>
     </Fragment>
   )

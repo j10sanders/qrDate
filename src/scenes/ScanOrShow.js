@@ -37,11 +37,15 @@ const ScanOrShow = ({ myResults }) => {
   const [comparedResult, compare] = useState()
 
   if (comparedResult) {
-    return <div>{JSON.stringify(comparedResult)}</div>
+    return <div>{JSON.stringify(comparedResult)}
+      {result}
+      {JSON.stringify(myResults)}
+    </div>
   }
 
   if (result) {
-    compare(compareTwoResponses(JSON.parse(myResults), JSON.parse(result)))
+    console.log(result, myResults)
+    compare(compareTwoResponses((myResults), JSON.parse(result)))
   }
 
   if (!readerShowing) {

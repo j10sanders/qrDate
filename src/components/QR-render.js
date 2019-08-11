@@ -4,7 +4,8 @@ import QRCode from 'qrcode.react';
 import ScanOrShow from '../scenes/ScanOrShow'
 
 const QrRender = ({ qAndAs, user }) => {
-  const fullObject = JSON.stringify({ firstName: user.firstName, userId: user.userId, qAndAs })
+  console.log(user, "IUHDAHIUDSA")
+  const fullObject = JSON.stringify({ firstName: user.firstName, userId: user.id, qAndAs })
   console.log(fullObject, "full")
   return (
     <Fragment>

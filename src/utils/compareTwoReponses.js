@@ -1,6 +1,6 @@
-export default (response, response1) => {
-  console.log(response, response1)
-  debugger
+export default (_response, _response1) => {
+  const response = _response.qAndAs ? _response.qAndAs : _response
+  const response1 = _response1.qAndAs ? _response1.qAndAs : _response1
   if (response.length !== response1.length) {
     throw Error(
       "Responses should contain same number of questions and answers."
