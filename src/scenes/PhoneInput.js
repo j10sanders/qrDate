@@ -14,10 +14,6 @@ const PhoneInput = () => {
   const [makeUser, newUser] = useState(false)
   const [existingUser, gotExistingUser] = useState(loadState('existingUser'))
 
-  // useEffect(() => {
-  //   getExistingUser(loadState('existingUser'))
-  // })
-
   const callApi = async num => {
     const formattedNumber = num.replace(/[- )(]/g, '')
     const res = await axios.get(`https://qrmatch.herokuapp.com/user/${formattedNumber}`)
@@ -41,7 +37,7 @@ const PhoneInput = () => {
   if (existingUser) {
     console.log(existingUser, "existingUser")
     if (existingUser.user && existingUser.user.Responses) {
-      return  <QrRender qAndAs={JSON.stringify(existingUser.user.Responses[0].answersJson)} user={existingUser.user} />
+      return  <QrRender qAndAs={existingUser.user.Responses[0].answersJson} user={existingUser.user} />
     }
     return <Survey user={existingUser} />
   }

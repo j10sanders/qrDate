@@ -11,8 +11,8 @@ export const StyledField = styled(FormField)`
 
 const User = ({ phone }) => {
   const [newUser, registerUser] = useState(loadState('existingUser'))
-  const [phoneNumber, formatPhone] = useState(phone.replace(/[- )(]/g,''))
-  const onSubmit = async (value, phone) => {
+  const [phoneNumber] = useState(phone.replace(/[- )(]/g,''))
+  const onSubmit = async (value) => {
     const userFields = {phoneNumber, ...value}
     const res = await axios.post(`https://qrmatch.herokuapp.com/user`, {userFields})
     if (!res.data) {

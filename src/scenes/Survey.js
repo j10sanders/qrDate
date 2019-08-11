@@ -90,7 +90,7 @@ const Survey = ({ user, phoneNumber }) => {
             {
               question:
                 "If you’ve just been given a one time gift of $10,000, you would____",
-              answers: []
+              answers: ["Hi", "hello"]
             },
             {
               question: "My idea of the perfect day is _____",
@@ -171,7 +171,7 @@ const Survey = ({ user, phoneNumber }) => {
       return q.question;
     });
     const answers = qs.map((x, i) => {
-      return { [x]: surveyAs[i] };
+      return { [x.charAt(0)]: surveyAs[i][1] };
     });
     setAnswersJson(answers);
     const payload = {
@@ -195,9 +195,9 @@ const Survey = ({ user, phoneNumber }) => {
     saveState("existingUser", fullUser.data);
   };
 
-  const updateAs = (val, index) => {
+  const updateAs = (val, index, choices) => {
     const As = [...surveyAs];
-    As[index] = val;
+    As[index] = [val, choices.indexOf(val)]
     setAs(As);
   };
 
@@ -206,7 +206,7 @@ const Survey = ({ user, phoneNumber }) => {
   }
 
   if (answersJson.length !== 0) {
-    return <QrRender qAndAs={JSON.stringify(answersJson)} user={user} />;
+    return <QrRender qAndAs={answersJson} user={user} />;
   }
 
   return (
@@ -220,8 +220,8 @@ const Survey = ({ user, phoneNumber }) => {
         >
           <Select
             options={q.answers}
-            onChange={({ option }) => updateAs(option, i)}
-            value={surveyAs[i]}
+            onChange={({ option }) => updateAs(option, i, q.answers)}
+            value={surveyAs[i] && surveyAs[i][0]}
           />
         </StyledField>
       ))}
