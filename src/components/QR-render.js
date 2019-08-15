@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import QRCode from "qrcode.react";
 import ScanOrShow from "../scenes/ScanOrShow";
 import compareTwoResponses from "../utils/compareTwoReponses";
@@ -8,6 +8,7 @@ import ShowResults from "../scenes/ShowResults";
 const QrRender = ({ qAndAs, user }) => {
   const [result, setScanResult] = useState();
   const [comparedResult, compare] = useState();
+  const [socketResponse, setSocketResponse] = useState();
   const socket = useContext(SocketContext);
   const myResults = [...qAndAs];
   const fullObject = JSON.stringify({
@@ -15,6 +16,24 @@ const QrRender = ({ qAndAs, user }) => {
     userId: user.id,
     qAndAs
   });
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      socket.emit("STORE_USER_ID", {
+        socketId: socket.io.engine.id,
+        userId: user.id
+      });
+    });
+    console.log("Socket Reached");
+    socket.on("SCANNED_YOU", data => {
+      console.log("I was scanned 1", data);
+      setSocketResponse(data);
+    });
+    socket.on("SCANNED_YOU2", data => {
+      console.log("I was scanned 2", data);
+      setSocketResponse(data);
+    });
+  }, [socketResponse]);
 
   if (comparedResult) {
     return (
@@ -29,15 +48,10 @@ const QrRender = ({ qAndAs, user }) => {
   if (result) {
     console.log(result, "~~result");
     console.log(myResults, "myresults");
-    socket.on("connect", () => {
-      socket.emit("STORE_USER_ID", {
-        socketId: "asd" + socket.io.engine.id,
-        userId: "123456"
-      });
-    });
+
     socket.emit("COMPARE", {
-      fromUserId: user.id,
-      toUserId: result.userId,
+      scannedUserId: result.userId,
+      scanningUserId: user.id,
       surveyId: 4
     });
     debugger;

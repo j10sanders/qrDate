@@ -33,7 +33,7 @@ const theme = {
   }
 };
 
-const socket = io("http://localhost:4000");
+const socket = io("https://qrmatch.herokuapp.com");
 
 const App = () => {
   return (
