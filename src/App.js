@@ -17,12 +17,16 @@ const theme = {
         active: '#E413C3',
       },
       focus: '#E413C3',
+      text: {
+        "dark": "#f8f8f8", "light": "#444444"
+      }
     },
     formField: {
       border: {
         color: '#E413C3'
       }
-    }
+    },
+    
   }
 }
 const App = () => {

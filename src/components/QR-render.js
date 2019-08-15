@@ -16,9 +16,6 @@ const QrRender = ({ qAndAs, user }) => {
   }
   
   if (result) {
-    console.log(result, "result")
-    console.log(myResults, "myresults")
-    debugger
     compare(compareTwoResponses(myResults, result))
   }
 
