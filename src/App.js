@@ -19,7 +19,11 @@ const theme = {
       border: {
         active: "#E413C3"
       },
-      focus: "#E413C3"
+      focus: "#E413C3",
+      text: {
+        dark: "#f8f8f8",
+        light: "#444444"
+      }
     },
     formField: {
       border: {
