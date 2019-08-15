@@ -1,7 +1,8 @@
 import React, { useState, Fragment, useEffect } from 'react'
-import { Button, FormField, Text, Meter, Box, Stack } from 'grommet'
+import { Button, FormField, Text, Meter, Box, Stack, Table, TableBody, TableRow, TableCell } from 'grommet'
 import axios from "axios"
 import GetGif from '../utils/getGif'
+import survey from '../utils/survey'
 
 const Ordinal_suffix_of = (i) => {
   const j = i % 10;
@@ -19,10 +20,9 @@ const Ordinal_suffix_of = (i) => {
 }
 
 const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
-  const [rank, setRank] = useState()
-  const [totalPlayers, setTotalPlayers] = useState()
-  const [sharedAnswers, setSharedAnswers] = useState()
-
+  const [rank, setRank] = useState(1)
+  const [totalPlayers, setTotalPlayers] = useState(4)
+  const [sameAnswers, setSharedAnswers] = useState([])
   useEffect(() => {
     const compare = async () => {
       const res = await axios.post(`https://qrmatch.herokuapp.com/compare`, { fromUserId, toUserId: result.userId, surveyId: 4 })
@@ -30,7 +30,10 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
       if (data) {
         setRank(data.rank)
         setTotalPlayers(data.totalPlayers)
-        setSharedAnswers(data.sharedAnswers)
+        const { sharedAnswers } = data
+        const fullAnswers = sharedAnswers.map(ob => [survey.data[Object.keys(ob)].question, survey.data[Object.keys(ob)].answers[Object.values(ob)]])
+
+        setSharedAnswers(fullAnswers)
       }
     }
     compare()
@@ -43,7 +46,7 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
           You scanned {result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1)}
         </Text>
       </Box>
-      {rank && (
+      {sameAnswers && (
         <div>
           <img style={{ maxWidth: '-webkit-fill-available', padding: '1rem', display: 'block', margin: 'auto' }} alt="gif" src={GetGif((totalPlayers - rank + 1) / totalPlayers)} />
           <Box align="center" pad="large">
@@ -53,7 +56,7 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
                 alignSelf="center"
                 values={[{
                   value: 100 * ((totalPlayers - rank + 1) / totalPlayers),
-                  label: true,
+                  // label: true,
                   color: "accent-1",
                 }]}
                 round
@@ -68,15 +71,23 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
               </Box>
             </Stack>
             <Text bold>You came in {Ordinal_suffix_of(rank)} out of {totalPlayers} players!</Text>
-            <Box align="center" pad={{ bottom: 'xsmall', top: 'large'}}>
-              
-                <Text bold size="xlarge">You and XXX agree on:</Text>
-              
-              <div style={{display: 'block',}}>
-                <Button primary label="Show Me!"/>
-                {console.log(sharedAnswers)}
+              <Text bold size="xlarge">You and XXX agree on:</Text>
+              <div style={{ display: 'block', }}>
+                <Button primary label="Show Me!" />
+                <Table>
+                  {sameAnswers.map(arr => (
+                    <TableRow key={arr[0]}>
+                      <TableCell scope="row">
+                        <div style={{ paddingTop: '3rem' }}><strong>{arr[0]}</strong></div>
+                      </TableCell>
+                      <TableCell scope="row">
+                      <div style={{ paddingTop: '3rem' }}>{arr[1]}</div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </Table>
               </div>
-            </Box>
+            
           </Box>
 
         </div>
