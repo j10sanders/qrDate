@@ -50,8 +50,8 @@ const QrRender = ({ qAndAs, user }) => {
     console.log(myResults, "myresults");
 
     socket.emit("COMPARE", {
-      scannedUserId: result.userId,
       scanningUserId: user.id,
+      scannedUserId: result.userId,
       surveyId: 4
     });
     debugger;
