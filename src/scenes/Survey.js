@@ -13,7 +13,6 @@ const Survey = ({ user, phoneNumber }) => {
   const [surveyAs, setAs] = useState(new Array(3));
   const [answersJson, setAnswersJson] = useState([]);
   const surveyId = 4;
-
   // const getSurvey = async () => {
   //   // const res = await axios.get(`https://qrmatch.herokuapp.com/survey/${surveyId}`)
   //   // if (!res.data) {
@@ -37,8 +36,6 @@ const Survey = ({ user, phoneNumber }) => {
     const answers = qs.map((x, i) => {
       return { [i]: surveyAs[i][1] };
     });
-    console.log(answers, "answers")
-    debugger
     setAnswersJson(answers);
     const payload = {
       responseFields: {

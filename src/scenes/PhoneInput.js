@@ -14,7 +14,7 @@ const PhoneInput = () => {
   const [number, setValue] = useState("");
   const [makeUser, newUser] = useState(false);
   const [existingUser, gotExistingUser] = useState(loadState("existingUser"));
-  const socket = useContext(SocketContext);
+  // const socket = useContext(SocketContext);
 
   // useEffect(() => {
   //   console.log("Sending Socket Event");
@@ -41,9 +41,6 @@ const PhoneInput = () => {
     const res = await axios.get(
       `https://qrmatch.herokuapp.com/user/${formattedNumber}`
     );
-    if (!res.error) {
-      newUser(true);
-    }
     if (res.data.user) {
       const { user } = res.data;
       if (user.firstName) {
@@ -59,11 +56,11 @@ const PhoneInput = () => {
   };
 
   if (existingUser) {
-    if (existingUser.user && existingUser.user.Responses) {
+    if (existingUser && existingUser.Responses) {
       return (
         <QrRender
-          qAndAs={existingUser.user.Responses[0].answersJson}
-          user={existingUser.user}
+          qAndAs={existingUser.Responses[0].answersJson}
+          user={existingUser}
         />
       );
     }

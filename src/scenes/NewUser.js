@@ -22,7 +22,6 @@ const User = ({ phone }) => {
       const { user } = res.data
       if (user.firstName) {
         registerUser(user)
-
       }
     }
   }
