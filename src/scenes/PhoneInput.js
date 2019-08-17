@@ -6,7 +6,7 @@ import { Phone } from "grommet-icons";
 import axios from "axios";
 import QrRender from "../components/QR-render";
 import NewUser from "./NewUser";
-import { loadState } from "../utils/saveLocal";
+import { loadState, saveState } from "../utils/saveLocal";
 import Survey from "./Survey";
 import SocketContext from "../components/SocketContext";
 
@@ -57,6 +57,7 @@ const PhoneInput = () => {
 
   if (existingUser) {
     if (existingUser && existingUser.Responses) {
+      saveState("existingUser", existingUser);
       return (
         <QrRender
           qAndAs={existingUser.Responses[0].answersJson}
