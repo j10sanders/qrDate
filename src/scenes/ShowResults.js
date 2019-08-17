@@ -30,14 +30,12 @@ const Ordinal_suffix_of = i => {
   return `${i}th`;
 };
 
-const ShowResult = ({ result, fromUserId, socketResponse }) => {
+const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
   const [rank, setRank] = useState();
   const [totalPlayers, setTotalPlayers] = useState();
   const [sameAnswers, setSharedAnswers] = useState([]);
   useEffect(() => {
     const displayData = data => {
-      console.log(data, "DATA")
-      debugger
       setRank(data.rank);
       setTotalPlayers(data.totalPlayers);
       const { sharedAnswers } = data;
@@ -120,6 +118,7 @@ const ShowResult = ({ result, fromUserId, socketResponse }) => {
             </Text>
             <div style={{ display: "block" }}>
               <Button primary label="Show Me!" />
+              <Button primary label="Scan Someone Else" onClick={resetCompare} />
               <Table>
                 {sameAnswers.map(arr => (
                   <TableRow key={arr[0]}>

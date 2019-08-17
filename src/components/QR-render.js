@@ -36,12 +36,18 @@ const QrRender = ({ qAndAs, user }) => {
     });
   }, [socketResponse]);
 
+  const resetCompare = () => {
+    setScanResult(null)
+    compare(null)
+    setSocketResponse(null)
+  }
+
   if (comparedResult) {
     return (
       <ShowResults
         result={result}
         fromUserId={user.id}
-        socketResponse
+        resetCompare={resetCompare}
       />
     );
   }
@@ -50,6 +56,7 @@ const QrRender = ({ qAndAs, user }) => {
     return (
       <ShowResults
         socketResponse={socketResponse}
+        resetCompare={resetCompare}
       />
     )
   }
@@ -63,14 +70,13 @@ const QrRender = ({ qAndAs, user }) => {
       scannedUserId: result.userId,
       surveyId: 4
     });
-    debugger;
     compare(compareTwoResponses(myResults, result));
   }
 
   return (
     <Fragment>
       <p style={{ textAlign: "center" }}>
-        Hello,{" "}
+        Lookin good,{" "}
         {user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}
       </p>
       <ScanOrShow result={result} setScanResult={setScanResult} />
