@@ -30,11 +30,25 @@ const Ordinal_suffix_of = i => {
   return `${i}th`;
 };
 
-const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
-  const [rank, setRank] = useState(1);
-  const [totalPlayers, setTotalPlayers] = useState(4);
+const ShowResult = ({ result, fromUserId, socketResponse }) => {
+  const [rank, setRank] = useState();
+  const [totalPlayers, setTotalPlayers] = useState();
   const [sameAnswers, setSharedAnswers] = useState([]);
   useEffect(() => {
+    const displayData = data => {
+      console.log(data, "DATA")
+      debugger
+      setRank(data.rank);
+      setTotalPlayers(data.totalPlayers);
+      const { sharedAnswers } = data;
+      const fullAnswers = sharedAnswers.map(ob => [
+        survey.data[Object.keys(ob)].question,
+        survey.data[Object.keys(ob)].answers[Object.values(ob)]
+      ]);
+  
+      setSharedAnswers(fullAnswers);
+    }
+
     const compare = async () => {
       const res = await axios.post(`https://qrmatch.herokuapp.com/compare`, {
         fromUserId,
@@ -42,30 +56,26 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
         surveyId: 4
       });
       const { data } = res || {};
-      if (data) {
-        setRank(data.rank);
-        setTotalPlayers(data.totalPlayers);
-        const { sharedAnswers } = data;
-        const fullAnswers = sharedAnswers.map(ob => [
-          survey.data[Object.keys(ob)].question,
-          survey.data[Object.keys(ob)].answers[Object.values(ob)]
-        ]);
-
-        setSharedAnswers(fullAnswers);
-      }
+      displayData(data)
     };
-    compare();
+    if (!socketResponse) {
+      compare();
+    } else {
+      displayData(socketResponse)
+    }
   }, []);
+
+
 
   return (
     <Fragment>
       <Box>
         <Text alignSelf="center" size="xlarge" color="#B300B3">
           You scanned{" "}
-          {result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1)}
+          {/* {result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1)} */}
         </Text>
       </Box>
-      {sameAnswers && (
+      {sameAnswers.length && (
         <div>
           <img
             style={{
@@ -77,6 +87,7 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
             alt="gif"
             src={GetGif((totalPlayers - rank + 1) / totalPlayers)}
           />
+          {console.log((totalPlayers - rank + 1) / totalPlayers)}
           <Box align="center" pad="large">
             <Stack anchor="center" style={{ padding: "1rem" }}>
               <Meter

@@ -3,8 +3,9 @@ import QRCode from "qrcode.react";
 import ScanOrShow from "../scenes/ScanOrShow";
 import compareTwoResponses from "../utils/compareTwoReponses";
 import SocketContext from "./SocketContext";
-
 import ShowResults from "../scenes/ShowResults";
+
+
 const QrRender = ({ qAndAs, user }) => {
   const [result, setScanResult] = useState();
   const [comparedResult, compare] = useState();
@@ -39,10 +40,18 @@ const QrRender = ({ qAndAs, user }) => {
     return (
       <ShowResults
         result={result}
-        comparedResult={comparedResult}
         fromUserId={user.id}
+        socketResponse
       />
     );
+  }
+
+  if (socketResponse) {
+    return (
+      <ShowResults
+        socketResponse={socketResponse}
+      />
+    )
   }
 
   if (result) {

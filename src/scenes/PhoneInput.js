@@ -8,7 +8,7 @@ import QrRender from "../components/QR-render";
 import NewUser from "./NewUser";
 import { loadState, saveState } from "../utils/saveLocal";
 import Survey from "./Survey";
-import SocketContext from "../components/SocketContext";
+// import SocketContext from "../components/SocketContext";
 
 const PhoneInput = () => {
   const [number, setValue] = useState("");
