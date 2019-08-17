@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 import QRCode from "qrcode.react";
+import { Text, Box } from 'grommet'
 import ScanOrShow from "../scenes/ScanOrShow";
 import compareTwoResponses from "../utils/compareTwoReponses";
 import SocketContext from "./SocketContext";
 import ShowResults from "../scenes/ShowResults";
-
 
 const QrRender = ({ qAndAs, user }) => {
   const [result, setScanResult] = useState();
@@ -74,20 +74,20 @@ const QrRender = ({ qAndAs, user }) => {
   }
 
   return (
-    <Fragment>
-      <p style={{ textAlign: "center" }}>
+    <Box>
+      <Text alignSelf="center" size="xlarge" color="#B300B3">
         Lookin good,{" "}
         {user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}
-      </p>
+      </Text>
       <ScanOrShow result={result} setScanResult={setScanResult} />
       <QRCode
         value={fullObject}
         size={256}
         renderAs="svg"
-        style={{ display: "block", margin: "auto" }}
+        style={{ display: "block", margin: "auto", paddingTop: '2rem'}}
         fgColor="#7d4cdb"
       />
-    </Fragment>
+    </Box>
   );
 };
 
