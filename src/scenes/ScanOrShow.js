@@ -34,17 +34,17 @@ const ScanOrShow = ({ setScanResult, result }) => {
   const [readerShowing, showReader] = useState(false);
 
   const socket = useContext(SocketContext);
-  useEffect(() => {
-    socket.on("SCANNED", data => {
-      console.log("SCANNED", data);
-      socket.emit("STORE_USER_ID", {
-        socketId: "asd" + socket.io.engine.id,
-        userId: "123456"
-      });
-    });
-    console.log("reached1");
-    // socket.emit("STORE_USER_ID", {});
-  });
+  // useEffect(() => {
+  //   socket.on("SCANNED", data => {
+  //     console.log("SCANNED", data);
+  //     socket.emit("STORE_USER_ID", {
+  //       socketId: socket.io.engine.id,
+  //       userId: "123456"
+  //     });
+  //   });
+  //   console.log("reached1");
+  //   // socket.emit("STORE_USER_ID", {});
+  // });
 
   if (!readerShowing) {
     return (

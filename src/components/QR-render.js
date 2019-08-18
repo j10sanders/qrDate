@@ -29,10 +29,6 @@ const QrRender = ({ qAndAs, user }) => {
       console.log("I was scanned 1", data);
       setSocketResponse(data);
     });
-    socket.on("SCANNED_YOU2", data => {
-      console.log("I was scanned 2", data);
-      setSocketResponse(data);
-    });
   }, [socketResponse]);
 
   if (comparedResult) {
@@ -54,7 +50,6 @@ const QrRender = ({ qAndAs, user }) => {
       scannedUserId: result.userId,
       surveyId: 4
     });
-    debugger;
     compare(compareTwoResponses(myResults, result));
   }
 

@@ -5,7 +5,7 @@ import Spinner from "../components/Spinner";
 import { StyledField } from "./NewUser";
 import QrRender from "../components/QR-render";
 import { saveState } from "../utils/saveLocal";
-import survey from '../utils/survey'
+import survey from "../utils/survey";
 
 const Survey = ({ user, phoneNumber }) => {
   const [hasError, setErrors] = useState(false);
@@ -22,7 +22,7 @@ const Survey = ({ user, phoneNumber }) => {
   //   // if (res.data.survey){
   //   //   setQs(res.data.survey.questionJson)
   //   // }
-    
+
   //   setQs(exampleSurvey);
   // };
 
@@ -37,8 +37,7 @@ const Survey = ({ user, phoneNumber }) => {
     const answers = qs.map((x, i) => {
       return { [i]: surveyAs[i][1] };
     });
-    console.log(answers, "answers")
-    debugger
+    console.log(answers, "answers");
     setAnswersJson(answers);
     const payload = {
       responseFields: {
