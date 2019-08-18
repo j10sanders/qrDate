@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import QRCode from "qrcode.react";
 import { Text, Box } from 'grommet'
+import styled from 'styled-components'
 import ScanOrShow from "../scenes/ScanOrShow";
 import compareTwoResponses from "../utils/compareTwoReponses";
 import SocketContext from "./SocketContext";
 import ShowResults from "../scenes/ShowResults";
-import styled from 'styled-components'
 
 const StyledQR = styled(QRCode)`
   position: fixed;
@@ -34,13 +34,10 @@ const QrRender = ({ qAndAs, user }) => {
         userId: user.id
       });
     });
-    console.log("Socket Reached");
     socket.on("SCANNED_YOU", data => {
-      console.log("I was scanned 1", data);
       setSocketResponse(data);
     });
     socket.on("SCANNED_YOU2", data => {
-      console.log("I was scanned 2", data);
       setSocketResponse(data);
     });
   }, [socketResponse]);
@@ -90,7 +87,6 @@ const QrRender = ({ qAndAs, user }) => {
         value={fullObject}
         size={256}
         renderAs="svg"
-        // style={{ display: "block", margin: "auto", paddingTop: '1rem'}}
         fgColor="#7d4cdb"
       />
     </Box>

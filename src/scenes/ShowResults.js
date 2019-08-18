@@ -9,11 +9,22 @@ import {
   Table,
   TableBody,
   TableRow,
-  TableCell
+  TableCell,
+  Accordion,
+  AccordionPanel,
 } from "grommet";
 import axios from "axios";
+import styled from 'styled-components';
 import GetGif from "../utils/getGif";
 import survey from "../utils/survey";
+
+const StyledButton = styled(Button)`
+    margin: 0 auto;
+    display: block;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding: 12px;
+`
 
 const Ordinal_suffix_of = i => {
   const j = i % 10;
@@ -43,7 +54,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
         survey.data[Object.keys(ob)].question,
         survey.data[Object.keys(ob)].answers[Object.values(ob)]
       ]);
-  
+
       setSharedAnswers(fullAnswers);
     }
 
@@ -85,7 +96,6 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
             alt="gif"
             src={GetGif((totalPlayers - rank + 1) / totalPlayers)}
           />
-          {console.log((totalPlayers - rank + 1) / totalPlayers)}
           <Box align="center" pad="large">
             <Stack anchor="center" style={{ padding: "1rem" }}>
               <Meter
@@ -113,26 +123,31 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
               You came in {Ordinal_suffix_of(rank)} out of {totalPlayers}{" "}
               players!
             </Text>
-            <Text bold size="xlarge">
+            {/* <Text bold size="xlarge">
               You and XXX agree on:
-            </Text>
+            </Text> */}
             <div style={{ display: "block" }}>
-              <Button primary label="Show Me!" />
-              <Button primary label="Scan Someone Else" onClick={resetCompare} />
-              <Table>
-                {sameAnswers.map(arr => (
-                  <TableRow key={arr[0]}>
-                    <TableCell scope="row">
-                      <div style={{ paddingTop: "3rem" }}>
-                        <strong>{arr[0]}</strong>
-                      </div>
-                    </TableCell>
-                    <TableCell scope="row">
-                      <div style={{ paddingTop: "3rem" }}>{arr[1]}</div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </Table>
+              <StyledButton primary label="Scan Someone Else" onClick={resetCompare} />
+
+              <Accordion animate='true' margin='small'>
+                <AccordionPanel label="What you agreed on:">
+                  <Table>
+                    {sameAnswers.map(arr => (
+                      <TableRow key={arr[0]}>
+                        <TableCell scope="row">
+                          <div style={{ paddingTop: "3rem" }}>
+                            <strong>{arr[0]}</strong>
+                          </div>
+                        </TableCell>
+                        <TableCell scope="row">
+                          <div style={{ paddingTop: "3rem" }}>{arr[1]}</div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </Table>
+                  <StyledButton primary label="Scan Someone Else" onClick={resetCompare} />
+                </AccordionPanel>
+              </Accordion>
             </div>
           </Box>
         </div>
