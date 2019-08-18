@@ -61,7 +61,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
     } else {
       displayData(socketResponse)
     }
-  }, []);
+  });
 
 
 

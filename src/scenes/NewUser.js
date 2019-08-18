@@ -22,7 +22,9 @@ const User = ({ phone }) => {
     }
   }
   if (newUser) {
-    saveState('existingUser', newUser.user)
+    console.log(newUser, "newUser")
+    debugger
+    saveState('existingUser', newUser)
     return <Survey user={newUser} phoneNumber={phoneNumber} />
   }
   return (
