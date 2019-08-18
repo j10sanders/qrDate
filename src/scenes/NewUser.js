@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { Form } from 'grommet'
+import { Form, Text } from 'grommet'
 import axios from "axios"
 import { BiggerButton, StyledField } from '../components/MyStyledComponents'
 import { saveState, loadState } from '../utils/saveLocal'
@@ -27,7 +27,9 @@ const User = ({ phone }) => {
   }
   return (
     <Fragment>
-      {phone}
+      <Text color="#770087">
+        {phone}
+      </Text>
       <Form onSubmit={({ value }) => onSubmit(value, phone)} style={{ paddingTop: '2rem' }}>
         <StyledField label="first name" name="firstName" required />
         <StyledField label="last name" name="lastName" required />

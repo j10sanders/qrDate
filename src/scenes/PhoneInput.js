@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { FormField } from "grommet";
+import { FormField, Text } from "grommet";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/dist/style.css";
 import { Phone } from "grommet-icons";
@@ -54,7 +54,10 @@ const PhoneInput = () => {
   return (
     <Fragment>
       <div style={{ paddingBottom: "2rem" }}>
-        <FormField label="Sign up or login with your phone number:">
+        <Text size="xlarge" color="#770087" weight="bold">
+        Sign up/log in with your phone number:
+        </Text>
+        <FormField style={{paddingTop: '2rem'}}>
           <ReactPhoneInput
             defaultCountry="us"
             value={number}
