@@ -1,30 +1,19 @@
 import React, { useState, Fragment, useEffect } from "react";
 import {
-  Button,
-  FormField,
   Text,
   Meter,
   Box,
   Stack,
   Table,
-  TableBody,
   TableRow,
   TableCell,
   Accordion,
   AccordionPanel,
 } from "grommet";
 import axios from "axios";
-import styled from 'styled-components';
 import GetGif from "../utils/getGif";
 import survey from "../utils/survey";
-
-const StyledButton = styled(Button)`
-    margin: 0 auto;
-    display: block;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-    padding: 12px;
-`
+import { BiggerButton } from "../components/MyStyledComponents"
 
 const Ordinal_suffix_of = i => {
   const j = i % 10;
@@ -104,7 +93,6 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
                 values={[
                   {
                     value: 100 * ((totalPlayers - rank + 1) / totalPlayers),
-                    // label: true,
                     color: "accent-1"
                   }
                 ]}
@@ -123,12 +111,8 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
               You came in {Ordinal_suffix_of(rank)} out of {totalPlayers}{" "}
               players!
             </Text>
-            {/* <Text bold size="xlarge">
-              You and XXX agree on:
-            </Text> */}
             <div style={{ display: "block" }}>
-              <StyledButton primary label="Scan Someone Else" onClick={resetCompare} />
-
+              <BiggerButton primary label="Scan Someone Else" onClick={resetCompare} />
               <Accordion animate='true' margin='small'>
                 <AccordionPanel label="What you agreed on:">
                   <Table>
@@ -145,7 +129,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
                       </TableRow>
                     ))}
                   </Table>
-                  <StyledButton primary label="Scan Someone Else" onClick={resetCompare} />
+                  <BiggerButton primary label="Scan Someone Else" onClick={resetCompare} />
                 </AccordionPanel>
               </Accordion>
             </div>

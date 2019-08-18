@@ -1,13 +1,9 @@
 import React, { Fragment, useState } from 'react'
-import { Button, FormField, Form } from 'grommet'
+import { Form } from 'grommet'
 import axios from "axios"
-import styled from 'styled-components'
+import { BiggerButton, StyledField } from '../components/MyStyledComponents'
 import { saveState, loadState } from '../utils/saveLocal'
 import Survey from './Survey'
-
-export const StyledField = styled(FormField)`
-  padding-top: 1rem;
-`
 
 const User = ({ phone }) => {
   const [newUser, registerUser] = useState(loadState('existingUser'))
@@ -26,7 +22,7 @@ const User = ({ phone }) => {
     }
   }
   if (newUser) {
-    saveState('existingUser', newUser)
+    saveState('existingUser', newUser.user)
     return <Survey user={newUser} phoneNumber={phoneNumber} />
   }
   return (
@@ -36,7 +32,7 @@ const User = ({ phone }) => {
         <StyledField label="first name" name="firstName" required />
         <StyledField label="last name" name="lastName" required />
         <StyledField label="email (optional)" name="email" />
-        <Button type="submit" primary label="Submit" style={{ marginTop: '3rem' }} />
+        <BiggerButton type="submit" primary label="Submit" style={{ marginTop: '3rem', display: 'initial' }} />
       </Form>
     </Fragment>
   )
