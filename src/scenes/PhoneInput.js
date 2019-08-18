@@ -57,12 +57,12 @@ const PhoneInput = () => {
         <Text size="xlarge" color="#770087" weight="bold">
         Sign up/log in with your phone number:
         </Text>
-        <FormField style={{paddingTop: '2rem'}}>
+        <FormField style={{paddingTop: '3rem'}}>
           <ReactPhoneInput
             defaultCountry="us"
             value={number}
             onChange={num => setValue(num)}
-            inputStyle={{ border: "0px", boxShadow: "none" }}
+            inputStyle={{ border: "0px", boxShadow: "none", fontWeight: "bold", fontSize: '22px' }}
             buttonStyle={{ backgroundColor: "white", border: "0px" }}
             inputExtraProps={{ autoFocus: true }}
           />
