@@ -50,20 +50,20 @@ const App = () => {
           <Container>
             <Row>
               <Col style={{ minHeight: "-webkit-fill-available" }}>
-                <div style={{ paddingTop: "5rem" }}>
+                <div style={{ paddingTop: "2rem" }}>
                   <PhoneInput />
                   {/* <Survey /> */}
                   {/* <ScanOrShow /> */}
                 </div>
               </Col>
             </Row>
-            <Button
+            {/* <Button
               onClick={() => {
                 saveState("existingUser", null);
                 window.location.reload();
               }}
               label="clear cache"
-            />
+            /> */}
           </Container>
         </Box>
       </Grommet>

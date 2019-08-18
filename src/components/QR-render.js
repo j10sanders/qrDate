@@ -1,10 +1,19 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import QRCode from "qrcode.react";
 import { Text, Box } from 'grommet'
 import ScanOrShow from "../scenes/ScanOrShow";
 import compareTwoResponses from "../utils/compareTwoReponses";
 import SocketContext from "./SocketContext";
 import ShowResults from "../scenes/ShowResults";
+import styled from 'styled-components'
+
+const StyledQR = styled(QRCode)`
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  transform: translate(-50%, -10%);
+  margin: 0 auto;
+`
 
 const QrRender = ({ qAndAs, user }) => {
   const [result, setScanResult] = useState();
@@ -62,9 +71,6 @@ const QrRender = ({ qAndAs, user }) => {
   }
 
   if (result) {
-    console.log(result, "~~result");
-    console.log(myResults, "myresults");
-
     socket.emit("COMPARE", {
       scanningUserId: user.id,
       scannedUserId: result.userId,
@@ -80,11 +86,11 @@ const QrRender = ({ qAndAs, user }) => {
         {user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}
       </Text>
       <ScanOrShow result={result} setScanResult={setScanResult} />
-      <QRCode
+      <StyledQR
         value={fullObject}
         size={256}
         renderAs="svg"
-        style={{ display: "block", margin: "auto", paddingTop: '2rem'}}
+        // style={{ display: "block", margin: "auto", paddingTop: '1rem'}}
         fgColor="#7d4cdb"
       />
     </Box>

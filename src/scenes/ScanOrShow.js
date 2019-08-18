@@ -11,7 +11,7 @@ const CenteredButton = styled(Button)`
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 3rem;
+  margin-top: 2rem;
 `;
 
 const ShowScannerButton = ({ showReader, setScanResult }) => {
@@ -24,7 +24,7 @@ const ShowScannerButton = ({ showReader, setScanResult }) => {
         setScanResult(null);
         showReader(true);
       }}
-      style={{ display: "block", margin: "0 auto", marginBottom: "1rem" }}
+      style={{ display: "block", margin: "0 auto", marginBottom: "1rem", padding: '15px'}}
     />
   );
 };
@@ -68,8 +68,9 @@ const ScanOrShow = ({ setScanResult, result }) => {
         label="Close QR Scanner"
         onClick={() => showReader(false)}
         icon={<Close />}
+        style={{ display: "block", margin: "0 auto", marginBottom: "1rem", padding: '15px'}}
       />
-      <div style={{ marginTop: "1rem" }}>
+      <div>
         <QrReader setScanResult={setScanResult} setError={setError} />
       </div>
       <p>{result}</p>
