@@ -1,10 +1,20 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import QRCode from "qrcode.react";
+import { Text, Box } from "grommet";
+import styled from "styled-components";
 import ScanOrShow from "../scenes/ScanOrShow";
 import compareTwoResponses from "../utils/compareTwoReponses";
 import SocketContext from "./SocketContext";
-
 import ShowResults from "../scenes/ShowResults";
+
+const StyledQR = styled(QRCode)`
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  transform: translate(-50%, -10%);
+  margin: 0 auto;
+`;
+
 const QrRender = ({ qAndAs, user }) => {
   const [result, setScanResult] = useState();
   const [comparedResult, compare] = useState();
@@ -24,27 +34,40 @@ const QrRender = ({ qAndAs, user }) => {
         userId: user.id
       });
     });
-    console.log("Socket Reached");
     socket.on("SCANNED_YOU", data => {
-      console.log("I was scanned 1", data);
       setSocketResponse(data);
     });
-  }, [socketResponse]);
+    socket.on("SCANNED_YOU2", data => {
+      setSocketResponse(data);
+    });
+  }, [socketResponse, user.id, socket]);
+
+  const resetCompare = () => {
+    setScanResult(null);
+    compare(null);
+    setSocketResponse(null);
+  };
 
   if (comparedResult) {
     return (
       <ShowResults
         result={result}
-        comparedResult={comparedResult}
         fromUserId={user.id}
+        resetCompare={resetCompare}
+      />
+    );
+  }
+
+  if (socketResponse) {
+    return (
+      <ShowResults
+        socketResponse={socketResponse}
+        resetCompare={resetCompare}
       />
     );
   }
 
   if (result) {
-    console.log(result, "~~result");
-    console.log(myResults, "myresults");
-
     socket.emit("COMPARE", {
       scanningUserId: user.id,
       scannedUserId: result.userId,
@@ -54,20 +77,19 @@ const QrRender = ({ qAndAs, user }) => {
   }
 
   return (
-    <Fragment>
-      <p style={{ textAlign: "center" }}>
-        Hello,{" "}
+    <Box>
+      <Text alignSelf="center" size="xlarge" color="#B300B3">
+        Lookin good,{" "}
         {user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}
-      </p>
+      </Text>
       <ScanOrShow result={result} setScanResult={setScanResult} />
-      <QRCode
+      <StyledQR
         value={fullObject}
         size={256}
         renderAs="svg"
-        style={{ display: "block", margin: "auto" }}
         fgColor="#7d4cdb"
       />
-    </Fragment>
+    </Box>
   );
 };
 

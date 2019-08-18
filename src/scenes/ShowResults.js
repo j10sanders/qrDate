@@ -1,19 +1,19 @@
 import React, { useState, Fragment, useEffect } from "react";
 import {
-  Button,
-  FormField,
   Text,
   Meter,
   Box,
   Stack,
   Table,
-  TableBody,
   TableRow,
-  TableCell
+  TableCell,
+  Accordion,
+  AccordionPanel,
 } from "grommet";
 import axios from "axios";
 import GetGif from "../utils/getGif";
 import survey from "../utils/survey";
+import { BiggerButton } from "../components/MyStyledComponents"
 
 const Ordinal_suffix_of = i => {
   const j = i % 10;
@@ -30,11 +30,23 @@ const Ordinal_suffix_of = i => {
   return `${i}th`;
 };
 
-const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
-  const [rank, setRank] = useState(1);
-  const [totalPlayers, setTotalPlayers] = useState(4);
+const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
+  const [rank, setRank] = useState();
+  const [totalPlayers, setTotalPlayers] = useState();
   const [sameAnswers, setSharedAnswers] = useState([]);
   useEffect(() => {
+    const displayData = data => {
+      setRank(data.rank);
+      setTotalPlayers(data.totalPlayers);
+      const { sharedAnswers } = data;
+      const fullAnswers = sharedAnswers.map(ob => [
+        survey.data[Object.keys(ob)].question,
+        survey.data[Object.keys(ob)].answers[Object.values(ob)]
+      ]);
+
+      setSharedAnswers(fullAnswers);
+    }
+
     const compare = async () => {
       const res = await axios.post(`https://qrmatch.herokuapp.com/compare`, {
         fromUserId,
@@ -42,30 +54,26 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
         surveyId: 4
       });
       const { data } = res || {};
-      if (data) {
-        setRank(data.rank);
-        setTotalPlayers(data.totalPlayers);
-        const { sharedAnswers } = data;
-        const fullAnswers = sharedAnswers.map(ob => [
-          survey.data[Object.keys(ob)].question,
-          survey.data[Object.keys(ob)].answers[Object.values(ob)]
-        ]);
-
-        setSharedAnswers(fullAnswers);
-      }
+      displayData(data)
     };
-    compare();
-  }, []);
+    if (!socketResponse) {
+      compare();
+    } else {
+      displayData(socketResponse)
+    }
+  });
+
+
 
   return (
     <Fragment>
       <Box>
         <Text alignSelf="center" size="xlarge" color="#B300B3">
           You scanned{" "}
-          {result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1)}
+          {/* {result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1)} */}
         </Text>
       </Box>
-      {sameAnswers && (
+      {sameAnswers.length && (
         <div>
           <img
             style={{
@@ -85,7 +93,6 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
                 values={[
                   {
                     value: 100 * ((totalPlayers - rank + 1) / totalPlayers),
-                    // label: true,
                     color: "accent-1"
                   }
                 ]}
@@ -104,25 +111,27 @@ const ShowResult = ({ result, comparedResult, fromUserId, surveyId }) => {
               You came in {Ordinal_suffix_of(rank)} out of {totalPlayers}{" "}
               players!
             </Text>
-            <Text bold size="xlarge">
-              You and XXX agree on:
-            </Text>
             <div style={{ display: "block" }}>
-              <Button primary label="Show Me!" />
-              <Table>
-                {sameAnswers.map(arr => (
-                  <TableRow key={arr[0]}>
-                    <TableCell scope="row">
-                      <div style={{ paddingTop: "3rem" }}>
-                        <strong>{arr[0]}</strong>
-                      </div>
-                    </TableCell>
-                    <TableCell scope="row">
-                      <div style={{ paddingTop: "3rem" }}>{arr[1]}</div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </Table>
+              <BiggerButton primary label="Scan Someone Else" onClick={resetCompare} />
+              <Accordion animate='true' margin='small'>
+                <AccordionPanel label="What you agreed on:">
+                  <Table>
+                    {sameAnswers.map(arr => (
+                      <TableRow key={arr[0]}>
+                        <TableCell scope="row">
+                          <div style={{ paddingTop: "3rem" }}>
+                            <strong>{arr[0]}</strong>
+                          </div>
+                        </TableCell>
+                        <TableCell scope="row">
+                          <div style={{ paddingTop: "3rem" }}>{arr[1]}</div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </Table>
+                  <BiggerButton primary label="Scan Someone Else" onClick={resetCompare} />
+                </AccordionPanel>
+              </Accordion>
             </div>
           </Box>
         </div>

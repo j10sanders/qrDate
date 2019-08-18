@@ -1,15 +1,11 @@
 import React from "react";
-import { Grommet, Box, FormField, Button } from "grommet";
+import { Grommet, Box, Button } from "grommet";
 import { Row, Col, Container } from "react-bootstrap";
-import ScanOrShow from "./scenes/ScanOrShow";
+import * as io from "socket.io-client";
 import PhoneInput from "./scenes/PhoneInput";
-import NewUser from "./scenes/NewUser";
-import Survey from "./scenes/Survey";
 import { saveState } from "./utils/saveLocal";
 import SocketContext from "./components/SocketContext";
-import * as io from "socket.io-client";
 
-// import Spinner from './components/Spinner'
 
 const theme = {
   global: {
@@ -40,20 +36,15 @@ const App = () => {
     <SocketContext.Provider value={socket}>
       <Grommet theme={theme}>
         <Box
-          // direction="row"
           border={{ color: "brand", size: "medium", style: "double" }}
           pad="small"
-          // fill
-          // flex
           round="small"
         >
           <Container>
             <Row>
               <Col style={{ minHeight: "-webkit-fill-available" }}>
-                <div style={{ paddingTop: "5rem" }}>
+                <div style={{ paddingTop: "2rem" }}>
                   <PhoneInput />
-                  {/* <Survey /> */}
-                  {/* <ScanOrShow /> */}
                 </div>
               </Col>
             </Row>
