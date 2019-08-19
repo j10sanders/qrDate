@@ -34,6 +34,7 @@ const PhoneInput = () => {
   };
 
   if (existingUser) {
+    console.log(existingUser, "exisiting user")
     if ((existingUser && existingUser.Responses) || (existingUser.user && existingUser.user.Responses)) {
       const user = existingUser.user || existingUser
       saveState("existingUser", user);
@@ -53,7 +54,7 @@ const PhoneInput = () => {
 
   return (
     <Fragment>
-      <div style={{ paddingBottom: "2rem" }}>
+      <div style={{ paddingBottom: "2rem", textAlign: 'center' }}>
         <Text size="xlarge" color="#770087" weight="bold">
         Sign up/log in with your phone number:
         </Text>
