@@ -53,7 +53,7 @@ const PhoneInput = () => {
 
   return (
     <Fragment>
-      <div style={{ paddingBottom: "2rem" }}>
+      <div style={{ paddingBottom: "2rem", textAlign: 'center' }}>
         <Text size="xlarge" color="#770087" weight="bold">
         Sign up/log in with your phone number:
         </Text>
