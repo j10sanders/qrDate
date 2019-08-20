@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Select } from "grommet";
+import { Select, Text } from "grommet";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import { BiggerButton, StyledField } from "../components/MyStyledComponents";
@@ -57,6 +57,9 @@ const Survey = ({ user, phoneNumber }) => {
 
   return (
     <Fragment>
+      <Text alignSelf="center" size="xlarge" color="#B300B3">
+        Answer the below questions:
+      </Text>
       {survey.data.map((q, i) => (
         <StyledField
           label={q.question}

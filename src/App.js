@@ -5,7 +5,7 @@ import * as io from "socket.io-client";
 import PhoneInput from "./scenes/PhoneInput";
 import { saveState } from "./utils/saveLocal";
 import SocketContext from "./components/SocketContext";
-
+require("dotenv").config();
 
 const theme = {
   global: {
@@ -29,7 +29,8 @@ const theme = {
   }
 };
 // const socket = io("https://qrmatch.herokuapp.com");
-const socket = io("http://localhost:4000");
+console.log("SOCKET HOST~~~", process.env.REACT_APP_SOCKET_HOST);
+const socket = io(process.env.REACT_APP_SOCKET_HOST);
 
 const App = () => {
   return (

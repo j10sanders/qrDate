@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import { Camera, Close } from "grommet-icons";
 import styled from "styled-components";
 import QrReader from "../components/Qr-reader";
-import SocketContext from "../components/SocketContext";
 import { BiggerButton } from "../components/MyStyledComponents";
 
 const ButtonContainer = styled.div`
