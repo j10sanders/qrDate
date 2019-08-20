@@ -7,7 +7,7 @@ import QrRender from "../components/QR-render";
 import { saveState } from "../utils/saveLocal";
 import survey from "../utils/survey";
 
-const Survey = ({ user, phoneNumber }) => {
+const Survey = ({ user }) => {
   const [surveyAs, setAs] = useState(new Array(survey.length));
   const [answersJson, setAnswersJson] = useState([]);
   const surveyId = 4;
@@ -36,7 +36,7 @@ const Survey = ({ user, phoneNumber }) => {
       debugger;
     }
     const fullUser = await axios.get(
-      `https://qrmatch.herokuapp.com/user/${phoneNumber}`
+      `https://qrmatch.herokuapp.com/user/${user.phoneNumber}`
     );
     saveState("existingUser", fullUser.data);
   };

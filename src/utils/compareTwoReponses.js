@@ -21,8 +21,7 @@ export default (_response, _response1) => {
         sharedAnswers.push(res)
       }
     });
-    console.log(score, sharedAnswers)
-  //shared answers will be used to give a random ice breaker question
+  // shared answers will be used to give a random ice breaker question
   return { score, sharedAnswers };
 };
 
