@@ -30,6 +30,22 @@ const Ordinal_suffix_of = i => {
   return `${i}th`;
 };
 
+const getColor = (rank = 1, totalPlayers = 1) => {
+  const score = (totalPlayers - rank + 1) / totalPlayers;
+  console.log("Score", score, rank, totalPlayers);
+  if (score > 0.66) {
+    console.log("status-okay");
+    return "status-ok";
+  }
+  if (score > 0.33) {
+    console.log("status-warning");
+    return "status-warning";
+  } else {
+    console.log("status-critical");
+    return "status-critical";
+  }
+};
+
 const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
   const [rank, setRank] = useState();
   const [totalPlayers, setTotalPlayers] = useState();
@@ -62,13 +78,18 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
       displayData(socketResponse);
     }
   });
-
   return (
     <Fragment>
       <Box>
         <Text alignSelf="center" size="xlarge" color="#B300B3">
-          You scanned{" "}
-          {/* {result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1)} */}
+          You{" "}
+          {result
+            ? "scanned " +
+              result.firstName.charAt(0).toUpperCase() +
+              result.firstName.slice(1)
+            : "were scanned by " +
+              socketResponse.scanningUser.firstName.charAt(0).toUpperCase() +
+              socketResponse.scanningUser.firstName.slice(1)}
         </Text>
       </Box>
       {sameAnswers.length && (
@@ -83,7 +104,11 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
             alt="gif"
             src={GetGif((totalPlayers - rank + 1) / totalPlayers)}
           />
+
           <Box align="center" pad="large">
+            <Text alignSelf="center" size="xlarge" color="#B300B3">
+              Ranking
+            </Text>
             <Stack anchor="center" style={{ padding: "1rem" }}>
               <Meter
                 thickness="small"
@@ -91,7 +116,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
                 values={[
                   {
                     value: 100 * ((totalPlayers - rank + 1) / totalPlayers),
-                    color: "accent-1"
+                    color: getColor(rank, totalPlayers)
                   }
                 ]}
                 round
@@ -106,8 +131,15 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
               </Box>
             </Stack>
             <Text bold>
-              You came in {Ordinal_suffix_of(rank)} out of {totalPlayers}{" "}
-              players!
+              {result
+                ? result.firstName.charAt(0).toUpperCase() +
+                  result.firstName.slice(1)
+                : socketResponse.scanningUser.firstName
+                    .charAt(0)
+                    .toUpperCase() +
+                  socketResponse.scanningUser.firstName.slice(1)}{" "}
+              came in <b>{Ordinal_suffix_of(rank)}</b> out of {totalPlayers}{" "}
+              potential matches!
             </Text>
             <div style={{ display: "block" }}>
               <BiggerButton
