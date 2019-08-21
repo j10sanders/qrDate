@@ -29,6 +29,7 @@ const theme = {
   }
 };
 // const socket = io("https://qrmatch.herokuapp.com");
+console.log("Process.env", process.env);
 console.log("SOCKET HOST~~~", process.env.REACT_APP_SOCKET_HOST);
 const socket = io(process.env.REACT_APP_SOCKET_HOST);
 
