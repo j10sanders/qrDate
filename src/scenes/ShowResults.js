@@ -139,7 +139,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
                     .toUpperCase() +
                   socketResponse.scanningUser.firstName.slice(1)}{" "}
               came in <b>{Ordinal_suffix_of(rank)}</b> out of {totalPlayers}{" "}
-              your potential matches!
+              potential matches!
             </Text>
             <div style={{ display: "block" }}>
               <BiggerButton
@@ -148,7 +148,9 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
                 onClick={resetCompare}
               />
               <Accordion animate="true" margin="small">
-                <AccordionPanel label="What you agreed on:">
+                <AccordionPanel
+                  label={`You both agreed on ${sameAnswers.length} answers:`}
+                >
                   <Table>
                     {sameAnswers.map(arr => (
                       <TableRow key={arr[0]}>
