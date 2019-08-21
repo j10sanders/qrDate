@@ -10,7 +10,7 @@ import survey from "../utils/survey";
 const Survey = ({ user }) => {
   const [surveyAs, setAs] = useState(new Array(survey.length));
   const [answersJson, setAnswersJson] = useState([]);
-  const surveyId = 4;
+  const surveyId = REACT_APP_SURVEY_ID || 1;
 
   const onSubmit = async () => {
     const qs = survey.data.map(q => {
