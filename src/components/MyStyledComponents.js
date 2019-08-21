@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Button, FormField } from "grommet";
+import { Button, FormField, RadioButtonGroup } from "grommet";
 
 export const BiggerButton = styled(Button)`
     margin: 0 auto;
@@ -11,4 +11,9 @@ export const BiggerButton = styled(Button)`
 
 export const StyledField = styled(FormField)`
   padding-top: 1rem;
+`
+
+export const StyledRadioButtonGroup = styled(RadioButtonGroup)`
+padding-top: 1rem;
+padding-top: 1rem;
 `
