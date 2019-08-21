@@ -71,7 +71,7 @@ const QrRender = ({ qAndAs, user }) => {
     socket.emit("COMPARE", {
       scanningUserId: user.id,
       scannedUserId: result.userId,
-      surveyId: 4
+      surveyId: process.env.REACT_APP_SURVEY_ID || 1
     });
     compare(compareTwoResponses(myResults, result));
   }

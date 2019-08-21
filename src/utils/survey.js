@@ -34,7 +34,7 @@ export default {
       ]
     },
     {
-      question: "What is your love language? ",
+      question: "What is your love language?",
       answers: [
         "Quality Time",
         "Acts of Service",
@@ -54,7 +54,7 @@ export default {
       ]
     },
     {
-      question: "My view on relationship is ___? ",
+      question: "My view on relationships is ___",
       answers: [
         "They are either meant to be or they’re not",
         "They require constant work and revisiting of joint goals",
@@ -147,9 +147,9 @@ export default {
     },
     {
       question:
-        "If at the door of the plane when sky diving, I want my partner to",
+        "If at the door of the plane when sky diving, I want my partner to...",
       answers: [
-        "Be ready to jump with me- this is an awesome date!",
+        "Be ready to jump with me",
         "Push me out, because even though I wanted to do this, I sometime get nervous when it’s time to act",
         "Wake me up! This is an insane nightmare. Why am I here?"
       ]
@@ -221,10 +221,10 @@ export default {
     {
       question: "When making decisions, I...",
       answers: [
-        "married with children doing the whole white picket fence in the suburbs thing",
-        "married with children but still hustling in the city",
-        "married and enjoying my time with my partner",
-        "casually dating there are so many fun people to meet!"
+        "Consult my horoscope ",
+        "Carefully weigh the pros and cons of each option",
+        "Go with my gut instinct",
+        "Ask my mom "
       ]
     }
   ]
