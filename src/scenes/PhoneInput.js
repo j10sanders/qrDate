@@ -36,8 +36,12 @@ const PhoneInput = () => {
 
   if (existingUser) {
     if (
-      (existingUser && existingUser.Responses.length) ||
-      (existingUser.user && existingUser.user.Responses.length)
+      (existingUser &&
+        existingUser.Responses &&
+        existingUser.Responses.length) ||
+      (existingUser.user &&
+        existingUser.user.Responses &&
+        existingUser.user.Responses.length)
     ) {
       const user = existingUser.user || existingUser;
       saveState("existingUser", user);
