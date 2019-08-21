@@ -8,12 +8,12 @@ import {
   TableRow,
   TableCell,
   Accordion,
-  AccordionPanel,
+  AccordionPanel
 } from "grommet";
 import axios from "axios";
 import GetGif from "../utils/getGif";
 import survey from "../utils/survey";
-import { BiggerButton } from "../components/MyStyledComponents"
+import { BiggerButton } from "../components/MyStyledComponents";
 
 const Ordinal_suffix_of = i => {
   const j = i % 10;
@@ -45,25 +45,23 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
       ]);
 
       setSharedAnswers(fullAnswers);
-    }
+    };
 
     const compare = async () => {
       const res = await axios.post(`https://qrmatch.herokuapp.com/compare`, {
         fromUserId,
         toUserId: result.userId,
-        surveyId: 4
+        surveyId: process.env.REACT_APP_SURVEY_ID || 1
       });
       const { data } = res || {};
-      displayData(data)
+      displayData(data);
     };
     if (!socketResponse) {
       compare();
     } else {
-      displayData(socketResponse)
+      displayData(socketResponse);
     }
   });
-
-
 
   return (
     <Fragment>
@@ -112,8 +110,12 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
               players!
             </Text>
             <div style={{ display: "block" }}>
-              <BiggerButton primary label="Scan Someone Else" onClick={resetCompare} />
-              <Accordion animate='true' margin='small'>
+              <BiggerButton
+                primary
+                label="Scan Someone Else"
+                onClick={resetCompare}
+              />
+              <Accordion animate="true" margin="small">
                 <AccordionPanel label="What you agreed on:">
                   <Table>
                     {sameAnswers.map(arr => (
@@ -129,7 +131,11 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
                       </TableRow>
                     ))}
                   </Table>
-                  <BiggerButton primary label="Scan Someone Else" onClick={resetCompare} />
+                  <BiggerButton
+                    primary
+                    label="Scan Someone Else"
+                    onClick={resetCompare}
+                  />
                 </AccordionPanel>
               </Accordion>
             </div>
