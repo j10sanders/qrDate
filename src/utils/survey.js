@@ -217,14 +217,15 @@ export default {
         "Who is as apathetic as I am"
       ]
     },
-
     {
-      question: "When making decisions, I...",
+      question:
+        "In 10 years, with regard to my love life, I will most like be ________",
       answers: [
-        "Consult my horoscope ",
-        "Carefully weigh the pros and cons of each option",
-        "Go with my gut instinct",
-        "Ask my mom "
+        "Casually dating- there are so many fun people to meet!",
+        "Married with children and doing the whole white picket fence in the suburbs thing",
+        "Married with children but still hustling in the city",
+        "Married and no kids- enjoying my time with my partner",
+        "at this event! When day will it be in 2029?"
       ]
     }
   ]
