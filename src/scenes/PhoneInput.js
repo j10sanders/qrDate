@@ -8,7 +8,7 @@ import QrRender from "../components/QR-render";
 import NewUser from "./NewUser";
 import { loadState, saveState } from "../utils/saveLocal";
 import Survey from "./Survey";
-import { BiggerButton } from '../components/MyStyledComponents'
+import { BiggerButton } from "../components/MyStyledComponents";
 
 const PhoneInput = () => {
   const [number, setValue] = useState("");
@@ -28,21 +28,20 @@ const PhoneInput = () => {
       if (user[0] === 0) {
         newUser(true);
       }
-    } if (res.data.error === 'No user exists with that phone number') {
-      newUser(true)
+    }
+    if (res.data.error === "No user exists with that phone number") {
+      newUser(true);
     }
   };
 
   if (existingUser) {
-    if ((existingUser && existingUser.Responses) || (existingUser.user && existingUser.user.Responses)) {
-      const user = existingUser.user || existingUser
+    if (
+      (existingUser && existingUser.Responses.length) ||
+      (existingUser.user && existingUser.user.Responses.length)
+    ) {
+      const user = existingUser.user || existingUser;
       saveState("existingUser", user);
-      return (
-        <QrRender
-          qAndAs={user.Responses[0].answersJson}
-          user={user}
-        />
-      );
+      return <QrRender qAndAs={user.Responses[0].answersJson} user={user} />;
     }
     return <Survey user={existingUser} />;
   }
@@ -53,16 +52,21 @@ const PhoneInput = () => {
 
   return (
     <Fragment>
-      <div style={{ paddingBottom: "2rem", textAlign: 'center' }}>
+      <div style={{ paddingBottom: "2rem", textAlign: "center" }}>
         <Text size="xlarge" color="#770087" weight="bold">
-        Sign up/log in with your phone number:
+          Sign up/log in with your phone number:
         </Text>
-        <FormField style={{paddingTop: '3rem'}}>
+        <FormField style={{ paddingTop: "3rem" }}>
           <ReactPhoneInput
             defaultCountry="us"
             value={number}
             onChange={num => setValue(num)}
-            inputStyle={{ border: "0px", boxShadow: "none", fontWeight: "bold", fontSize: '22px' }}
+            inputStyle={{
+              border: "0px",
+              boxShadow: "none",
+              fontWeight: "bold",
+              fontSize: "22px"
+            }}
             buttonStyle={{ backgroundColor: "white", border: "0px" }}
             inputExtraProps={{ autoFocus: true }}
           />
