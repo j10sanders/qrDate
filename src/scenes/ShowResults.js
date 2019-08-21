@@ -139,7 +139,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
                     .toUpperCase() +
                   socketResponse.scanningUser.firstName.slice(1)}{" "}
               came in <b>{Ordinal_suffix_of(rank)}</b> out of {totalPlayers}{" "}
-              potential matches!
+              your potential matches!
             </Text>
             <div style={{ display: "block" }}>
               <BiggerButton
