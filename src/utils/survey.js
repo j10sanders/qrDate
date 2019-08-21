@@ -143,7 +143,7 @@ export default {
     {
       question: "Family is ...",
       answers: [
-        "Everything. I try to see my relative as much as possible.",
+        "Everything. I try to see my relatives as much as possible.",
         "A once a year obligation",
         "Important, but I try to balance time with them and with my friends."
       ]
