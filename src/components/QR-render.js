@@ -40,9 +40,6 @@ const QrRender = ({ qAndAs, user }) => {
     socket.on("SCANNED_YOU", data => {
       setSocketResponse(data);
     });
-    socket.on("SCANNED_YOU2", data => {
-      setSocketResponse(data);
-    });
   }, [socketResponse, user.id, socket]);
 
   const resetCompare = () => {

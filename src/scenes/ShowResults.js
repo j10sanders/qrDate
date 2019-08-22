@@ -60,7 +60,6 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
         survey.data[Object.keys(ob)].question,
         survey.data[Object.keys(ob)].answers[Object.values(ob)]
       ]);
-
       setSharedAnswers(fullAnswers);
       setCompared(true)
     };
@@ -80,7 +79,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
       displayData(socketResponse);
       setCompared(true)
     }
-  }, [socketResponse, fromUserId, result.userId]);
+  }, [socketResponse, fromUserId, result]);
 
   return (
     <Fragment>
