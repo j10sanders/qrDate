@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { Camera, Close } from "grommet-icons";
 import styled from "styled-components";
 import QrReader from "../components/Qr-reader";
