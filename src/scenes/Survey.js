@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Select, Text } from "grommet";
+import { Select, Text, Form } from "grommet";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import { BiggerButton, StyledField } from "../components/MyStyledComponents";
@@ -8,7 +8,7 @@ import { saveState } from "../utils/saveLocal";
 import survey from "../utils/survey";
 
 const Survey = ({ user }) => {
-  const [surveyAs, setAs] = useState(new Array(survey.length));
+  const [surveyAs, setAs] = useState([]);
   const [answersJson, setAnswersJson] = useState([]);
   const surveyId = process.env.REACT_APP_SURVEY_ID || 1;
 
@@ -60,26 +60,29 @@ const Survey = ({ user }) => {
       <Text alignSelf="center" size="xlarge" color="#B300B3">
         Answer the below questions:
       </Text>
-      {survey.data.map((q, i) => (
-        <StyledField
-          label={q.question}
-          name={q.question}
-          required
-          key={q.question}
-        >
-          <Select
-            options={q.answers}
-            onChange={({ option }) => updateAs(option, i, q.answers)}
-            value={surveyAs[i] && surveyAs[i][0]}
-          />
-        </StyledField>
-      ))}
-      <BiggerButton
-        onClick={onSubmit}
-        label="Submit"
-        primary
-        style={{ marginTop: "3rem" }}
-      />
+      <Form onSubmit={onSubmit}>
+        {survey.data.map((q, i) => (
+          <StyledField
+            label={q.question}
+            name={q.question}
+            key={q.question}
+            required={!surveyAs[i]}
+          >
+            <Select
+              options={q.answers}
+              onChange={({ option }) => updateAs(option, i, q.answers)}
+              value={surveyAs[i] && surveyAs[i][0]}
+            />
+          </StyledField>
+        ))}
+        <BiggerButton
+          type="submit"
+          label="Submit"
+          primary
+          style={{ marginTop: "3rem" }}
+          // disabled={surveyAs.length !== survey.data.length}
+        />
+      </Form>
     </Fragment>
   );
 };

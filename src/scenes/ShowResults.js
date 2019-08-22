@@ -82,14 +82,11 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
     <Fragment>
       <Box>
         <Text alignSelf="center" size="xlarge" color="#B300B3">
-          You{" "}
+          You
           {result
-            ? "scanned " +
-              result.firstName.charAt(0).toUpperCase() +
-              result.firstName.slice(1)
-            : "were scanned by " +
-              socketResponse.scanningUser.firstName.charAt(0).toUpperCase() +
-              socketResponse.scanningUser.firstName.slice(1)}
+            ? ` scanned ${result.firstName.charAt(0).toUpperCase()} ${result.firstName.slice(1)}`
+            : ` were scanned by " ${socketResponse.scanningUser.firstName.charAt(0).toUpperCase()} ${socketResponse.scanningUser.firstName.slice(1)}`
+          }
         </Text>
       </Box>
       {sameAnswers.length && (
