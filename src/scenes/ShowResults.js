@@ -149,7 +149,8 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
               />
               <Accordion animate="true" margin="small">
                 <AccordionPanel
-                  label={`You both agreed on ${sameAnswers.length} answers:`}
+                  style={{textAlign: 'center', fontWeight: 'bold'}}
+                  label={<Text size="xlarge" color="#B300B3" bold alignSelf="center">{sameAnswers.length} shared answers!  Tap to view</Text>}
                 >
                   <Table>
                     {sameAnswers.map(arr => (
