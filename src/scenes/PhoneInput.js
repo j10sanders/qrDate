@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { FormField, Text } from "grommet";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/dist/style.css";
@@ -14,6 +14,16 @@ const PhoneInput = () => {
   const [number, setValue] = useState("");
   const [makeUser, newUser] = useState(false);
   const [existingUser, gotExistingUser] = useState(loadState("existingUser"));
+
+  useEffect(() => {
+    if (loadState('existingUser')) {
+      if (new Date(loadState('existingUser').createdAt) < new Date('Thu Aug 22 2019 17:22:41 GMT-0400')) {
+        saveState("existingUser", null);
+        window.location.reload();
+      }
+    }
+  }, [])
+
 
   const callApi = async num => {
     const formattedNumber = num.replace(/[- )(]/g, "");
