@@ -8,17 +8,20 @@ import SocketContext from "./SocketContext";
 import ShowResults from "../scenes/ShowResults";
 
 const StyledQR = styled(QRCode)`
-  position: fixed;
-  left: 50%;
-  bottom: 1rem;
-  transform: translate(-50%, -10%);
-  margin: 0 auto;
+  /* position: fixed; */
+  /* left: 50%; */
+  /* bottom: 1rem; */
+  /* transform: translate(-50%, -10%); */
+  margin: auto;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 `;
 
 const QrRender = ({ qAndAs, user }) => {
   const [result, setScanResult] = useState();
   const [comparedResult, compare] = useState();
   const [socketResponse, setSocketResponse] = useState();
+  const [readerShowing, showReader] = useState(false);
   const socket = useContext(SocketContext);
   const myResults = [...qAndAs];
   const fullObject = JSON.stringify({
@@ -82,13 +85,16 @@ const QrRender = ({ qAndAs, user }) => {
         Lookin good,{" "}
         {user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}
       </Text>
-      <ScanOrShow result={result} setScanResult={setScanResult} />
-      <StyledQR
-        value={fullObject}
-        size={256}
-        renderAs="svg"
-        fgColor="#7d4cdb"
-      />
+      {!readerShowing && (
+        <StyledQR
+          value={fullObject}
+          size={256}
+          renderAs="svg"
+          fgColor="#7d4cdb"
+        />
+      )
+      }
+      <ScanOrShow result={result} setScanResult={setScanResult} readerShowing={readerShowing} showReader={showReader} />
     </Box>
   );
 };

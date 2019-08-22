@@ -23,9 +23,9 @@ const ShowScannerButton = ({ showReader, setScanResult }) => {
   );
 };
 
-const ScanOrShow = ({ setScanResult, result }) => {
+const ScanOrShow = ({ setScanResult, result, readerShowing, showReader }) => {
   const [error, setError] = useState();
-  const [readerShowing, showReader] = useState(false);
+  
 
   if (!readerShowing) {
     return (
@@ -44,17 +44,16 @@ const ScanOrShow = ({ setScanResult, result }) => {
 
   return (
     <ButtonContainer>
+      <div style={{marginTop: '1rem'}}>
+        <QrReader setScanResult={setScanResult} setError={setError} />
+      </div>
       <BiggerButton
         primary
         label="Close QR Scanner"
         onClick={() => showReader(false)}
         icon={<Close />}
-        style={{ marginTop: "0rem", marginBottom: "1rem" }}
+        style={{ marginTop: "3rem", marginBottom: "1rem" }}
       />
-      <div>
-        <QrReader setScanResult={setScanResult} setError={setError} />
-      </div>
-      <p>{result}</p>
     </ButtonContainer>
   );
 };
