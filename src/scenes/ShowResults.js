@@ -88,7 +88,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
           You
           {result
             ? ` scanned ${result.firstName.charAt(0).toUpperCase()}${result.firstName.slice(1)}`
-            : ` were scanned by " ${socketResponse.scanningUser.firstName.charAt(0).toUpperCase()}${socketResponse.scanningUser.firstName.slice(1)}`
+            : ` were scanned by ${socketResponse.scanningUser.firstName.charAt(0).toUpperCase()}${socketResponse.scanningUser.firstName.slice(1)}`
           }
         </Text>
       </Box>
