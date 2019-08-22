@@ -25,7 +25,7 @@ const User = ({ phone }) => {
 
   if (newUser) {
     saveState('existingUser', newUser)
-    return <Survey user={newUser} phoneNumber={phoneNumber} />
+    return <Survey user={newUser} />
   }
   return (
     <Fragment>

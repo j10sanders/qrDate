@@ -50,6 +50,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
   const [rank, setRank] = useState();
   const [totalPlayers, setTotalPlayers] = useState();
   const [sameAnswers, setSharedAnswers] = useState([]);
+  const [compared, setCompared] = useState(false)
   useEffect(() => {
     const displayData = data => {
       setRank(data.rank);
@@ -61,6 +62,7 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
       ]);
 
       setSharedAnswers(fullAnswers);
+      setCompared(true)
     };
 
     const compare = async () => {
@@ -76,20 +78,22 @@ const ShowResult = ({ result, fromUserId, socketResponse, resetCompare }) => {
       compare();
     } else {
       displayData(socketResponse);
+      setCompared(true)
     }
-  });
+  }, [socketResponse, fromUserId, result.userId]);
+
   return (
     <Fragment>
       <Box>
         <Text alignSelf="center" size="xlarge" color="#B300B3">
           You
           {result
-            ? ` scanned ${result.firstName.charAt(0).toUpperCase()} ${result.firstName.slice(1)}`
-            : ` were scanned by " ${socketResponse.scanningUser.firstName.charAt(0).toUpperCase()} ${socketResponse.scanningUser.firstName.slice(1)}`
+            ? ` scanned ${result.firstName.charAt(0).toUpperCase()}${result.firstName.slice(1)}`
+            : ` were scanned by " ${socketResponse.scanningUser.firstName.charAt(0).toUpperCase()}${socketResponse.scanningUser.firstName.slice(1)}`
           }
         </Text>
       </Box>
-      {sameAnswers.length && (
+      {compared && (
         <div>
           <img
             style={{
