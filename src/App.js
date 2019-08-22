@@ -49,13 +49,13 @@ const App = () => {
                 </div>
               </Col>
             </Row>
-            <Button
+            {/* <Button
               onClick={() => {
                 saveState("existingUser", null);
                 window.location.reload();
               }}
               label="clear cache"
-            />
+            /> */}
           </Container>
         </Box>
       </Grommet>
