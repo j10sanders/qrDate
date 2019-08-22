@@ -6,6 +6,7 @@ const QrReader = ({ setError, setScanResult }) => {
     <div style={{margin: 'auto', maxWidth: '27vh'}}>
       <QR
         delay={300}
+        showViewFinder={false}
         onError={err => setError(err)}
         onScan={data => setScanResult(JSON.parse(data))}
         style={{ width: "100%", height: "55%", margin: "0 auto" }}
