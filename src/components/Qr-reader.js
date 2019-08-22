@@ -3,7 +3,7 @@ import QR from "react-qr-reader";
 
 const QrReader = ({ setError, setScanResult }) => {
   return (
-    <div style={{margin: 'auto', maxWidth: '27vh'}}>
+    <div style={{ maxWidth: '256px', margin: 'auto'}}>
       <QR
         delay={300}
         onError={err => setError(err)}
